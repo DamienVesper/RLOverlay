@@ -1,0 +1,8 @@
+{
+  "name": "@rl-overlay/shared",
+  "private": true,
+  "dependencies": {
+    "socket.io": "^4.8.1",
+    "ws": "^8.18.0"
+  }
+}

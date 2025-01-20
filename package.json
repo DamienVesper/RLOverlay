@@ -1,0 +1,28 @@
+{
+  "name": "@damienvesper/rl-overlay",
+  "version": "0.0.0",
+  "description": "Rocket League overlay.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:server": "cd server && pnpm dev",
+    "dev:client": "cd client && pnpm dev",
+    "lint": "eslint . --fix",
+    "lint:ci": "eslint ."
+  },
+  "author": "DamienVesper",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^2.13.0",
+    "@types/bun": "^1.1.17",
+    "eslint": "^9.18.0",
+    "eslint-plugin-svelte": "^2.46.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.20.0"
+  },
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ]
+}

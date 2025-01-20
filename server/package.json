@@ -1,0 +1,16 @@
+{
+  "name": "@rl-overlay/server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun --bun electrobun build",
+    "dev": "bun install && electrobun build && electrobun dev"
+  },
+  "dependencies": {
+    "webview-bun": "^2.3.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.17"
+  }
+}
