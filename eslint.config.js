@@ -118,9 +118,9 @@ export default tseslint.config(
     },
     {
         ignores: [
-            `build/`,
-            `.svelte-kit/`,
-            `dist/`
+            `client/.svelte-kit/`,
+            `client/dist/`,
+            `server/out/`
         ]
     }
 );

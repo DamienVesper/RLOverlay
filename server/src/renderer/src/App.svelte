@@ -26,15 +26,20 @@
     const updateConfig = (_e: unknown) => {
         window.electron.ipcRenderer.send(`updateServerConfig`, $state.snapshot(config));
     };
+
+    const resetSeriesScore = (_e: unknown) => {};
+
+    const resetTeamData = (_e: unknown) => {};
 </script>
 
 <header>
     <h1 class="text-center mt-3">Vesper's BARL</h1>
 </header>
 <main class="container">
-    <div>
-        <h2>Match Info</h2>
+    <div class="mt-5">
+        <h3 class="font-lg">Match Info</h3>
         <div class="d-grid gap-2">
+            <hr>
             <div class="row g-2">
                 <div class="col-3">
                     <div class="input-group">
@@ -57,7 +62,7 @@
             </div>
             <div class="row g-2">
                 <div class="col">
-                    <button class="btn btn-primary w-100">
+                    <button class="btn btn-primary w-100" onclick={resetSeriesScore}>
                         <FontAwesomeIcon icon={faRankingStar} />
                         Reset Series Score
                     </button>
@@ -69,15 +74,69 @@
                     </button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-danger w-100">
+                    <button class="btn btn-danger w-100" onclick={resetTeamData}>
                         <FontAwesomeIcon icon={faTrash} />
                         Reset Team Data
                     </button>
                 </div>
             </div>
+            <hr>
+        </div>
+        <div class="d-grid gap-2 mt-2">
+            <div class="row">
+                <div class="col text-center">
+                    <h3>Left Team</h3>
+                    <hr>
+                </div>
+                <div class="col-2"></div>
+                <div class="col text-center">
+                    <h3>Right Team</h3>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex">
+                        <label for="team-series-score-1">Series Score</label>
+                        <input type="number" name="team-series-score-1" class="form-control ms-3" placeholder="0">
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col">
+                    <div class="d-flex">
+                        <label for="team-series-score-2">Series Score</label>
+                        <input type="number" name="team-series-score-2" class="form-control ms-3" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex">
+                        <label for="team-name-1">Name</label>
+                        <input type="text" name="team-name-1" class="form-control ms-3" placeholder="BLUE">
+                    </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col">
+                    <div class="d-flex">
+                        <label for="team-name-2">Name</label>
+                        <input type="text" name="team-name-2" class="form-control ms-3" placeholder="ORANGE">
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="text-center">
+            <div class="form-text">Series score automatically updates at the end of each game.</div>
+            <div class="form-text">Leave team names blank to default to in-game names.</div>
+            <div class="form-text">Contact me on <a href="https://discord.com/users/386940319666667521" target="_blank">Discord</a> if you have any issues.</div>
         </div>
     </div>
 </main>
 
 <style lang="scss">
+    div label {
+        min-width: 100px;
+        vertical-align: middle;
+    }
 </style>

@@ -7,7 +7,7 @@ export class GoalScoredPacket extends Packet<GoalScored, typeof core.game.goalDa
     serialize = (_raw: GoalScored) => core.game.goalData;
 
     deserialize = (raw: GoalScored) => {
-        core.game.teams.get(raw.data.scorer.teamnum)!.score++;
+        core.game.teams.get(raw.data.scorer.teamnum).score++;
         core.game.goalData = {
             speed: raw.data.goalspeed,
             scorer: raw.data.scorer
