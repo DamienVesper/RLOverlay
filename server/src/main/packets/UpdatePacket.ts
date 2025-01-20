@@ -25,9 +25,10 @@ export class UpdatePacket extends Packet<UpdateState, GameMsg> {
             stats
         }));
 
-        const teams = [...core.game.teams.values()].map(({ id, name, color, score }) => ({
+        const teams = [...core.game.teams.values()].map(({ id, name, customName, color, score }) => ({
             id,
             name,
+            customName,
             color,
             score
         }));

@@ -49,18 +49,41 @@ void app.whenReady().then(() => {
         win.webContents.send(`sendServerConfig`, config);
     });
 
+    ipcMain.on(`getSeriesScore`, () => {
+        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
+    });
+
+    ipcMain.on(`getTeamData`, () => {
+        win.webContents.send(`sendTeamData`, [...core.game.teams.values()]);
+    });
+
     ipcMain.on(`updateServerConfig`, (_e, newConfig: Omit<typeof config, `server` | `host`>) => {
         config.eventText = newConfig.eventText;
         config.seriesText = newConfig.seriesText;
         config.seriesLimit = newConfig.seriesLimit;
     });
 
-    ipcMain.on(`resetSeriesScore`, () => {
-        core.game.clearSeries();
+    ipcMain.on(`updateSeriesScore`, (_e, teams) => {
+        core.game.series[0] = teams[0].score;
+        core.game.series[1] = teams[1].score;
     });
 
-    // to be implemented
-    // ipcMain.on(`switchTeams`, () => {});
+    ipcMain.on(`updateTeamData`, (_e, teams) => {
+        config.customTeamNames[0] = teams[0].name;
+        config.customTeamNames[1] = teams[1].name;
+    });
+
+    ipcMain.on(`resetSeriesScore`, () => {
+        core.game.clearSeries();
+        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
+    });
+
+    ipcMain.on(`resetTeamData`, () => {
+        config.customTeamNames[0] = ``;
+        config.customTeamNames[1] = ``;
+
+        win.webContents.send(`sendTeamData`, [...core.game.teams.values()]);
+    });
 
     // Create the window.
     createWindow();

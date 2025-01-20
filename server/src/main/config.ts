@@ -2,6 +2,7 @@ export const config = {
     eventText: `RLCS`,
     seriesText: `GAME {{game}} | BEST OF {{bo}}`,
     seriesLimit: 0,
+    customTeamNames: [``, ``],
 
     server: {
         host: `0.0.0.0`,
@@ -41,6 +42,7 @@ export interface Config {
     eventText: string
     seriesText: string
     seriesLimit: number
+    customTeamNames: string[]
 
     server: ServerConfig
     sos: SOSConfig

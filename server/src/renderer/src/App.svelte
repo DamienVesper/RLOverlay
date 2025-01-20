@@ -37,8 +37,8 @@
         }); 
 
         window.electron.ipcRenderer.on(`sendTeamData`, (_e, newTeams) => {
-            teams[0].name = newTeams[0].name;
-            teams[1].name = newTeams[1].name;
+            teams[0].name = newTeams[0].customName;
+            teams[1].name = newTeams[1].customName;
         });
 
         window.electron.ipcRenderer.send(`getServerConfig`);
@@ -54,7 +54,9 @@
 
     const switchTeamData = (_e: unknown) => {
         teams.reverse();
+
         updateSeriesScore(void 0);
+        updateTeamData(void 0);
     }
 
     const resetTeamData = (_e: unknown) => {

@@ -1,15 +1,13 @@
 import { core } from "../core.js";
+import { win } from "../index.js";
 
 import { GoalScored } from "../../../../shared/src/net/SOS.js";
 import { Packet } from "./Packet.js";
-import { win } from "../index.js";
 
 export class GoalScoredPacket extends Packet<GoalScored, typeof core.game.goalData> {
     serialize = (_raw: GoalScored) => core.game.goalData;
 
     deserialize = (raw: GoalScored) => {
-        console.log(core.game.teams);
-
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         if (core.game.teams.has(raw.data.scorer.teamnum)) core.game.teams.get(raw.data.scorer.teamnum)!.score++;
         core.game.goalData = {
@@ -17,6 +15,6 @@ export class GoalScoredPacket extends Packet<GoalScored, typeof core.game.goalDa
             scorer: raw.data.scorer
         };
 
-        win.webContents.send(`sendSeriesScore`, core.game.teams);
+        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
     };
 }
