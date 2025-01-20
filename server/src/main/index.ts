@@ -7,7 +7,7 @@ import { core } from "./core";
 import { join } from "path";
 import { config } from "./config";
 
-let win: BrowserWindow;
+export let win: BrowserWindow;
 
 const createWindow = () => {
     win = new BrowserWindow({
@@ -45,9 +45,8 @@ void app.whenReady().then(() => {
     app.on(`browser-window-created`, (_, window) => optimizer.watchWindowShortcuts(window));
 
     // IPC.
-    ipcMain.handle(`getServerConfig`, () => {
+    ipcMain.on(`getServerConfig`, () => {
         win.webContents.send(`sendServerConfig`, config);
-        console.log(`received`);
     });
 
     ipcMain.on(`updateServerConfig`, (_e, newConfig: Omit<typeof config, `server` | `host`>) => {

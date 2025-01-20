@@ -13,11 +13,32 @@
         seriesLimit: 0
     });
 
+    const teams = $state([
+        {
+            name: ``,
+            score: 0
+        },
+        {
+            name: ``,
+            score: 0
+        }
+    ]);
+
     onMount(() => {
         window.electron.ipcRenderer.on(`sendServerConfig`, (_e, newConfig) => {
             config.titleText = newConfig.titleText;
             config.seriesText = newConfig.seriesText;
             config.seriesLimit = newConfig.seriesLimit;
+        });
+
+        window.electron.ipcRenderer.on(`sendSeriesScore`, (_e, newTeams) => {
+            teams[0].score = newTeams[0].score;
+            teams[1].score = newTeams[1].score;
+        }); 
+
+        window.electron.ipcRenderer.on(`sendTeamData`, (_e, newTeams) => {
+            teams[0].name = newTeams[0].name;
+            teams[1].name = newTeams[1].name;
         });
 
         window.electron.ipcRenderer.send(`getServerConfig`);
@@ -27,17 +48,38 @@
         window.electron.ipcRenderer.send(`updateServerConfig`, $state.snapshot(config));
     };
 
-    const resetSeriesScore = (_e: unknown) => {};
+    const resetSeriesScore = (_e: unknown) => {
+        window.electron.ipcRenderer.send(`resetSeriesScore`);
+    };
 
-    const resetTeamData = (_e: unknown) => {};
+    const switchTeamData = (_e: unknown) => {
+        teams.reverse();
+        updateSeriesScore(void 0);
+    }
+
+    const resetTeamData = (_e: unknown) => {
+        window.electron.ipcRenderer.send(`resetTeamData`);
+    };
+
+    const updateSeriesScore = (_e: unknown) => {
+        teams[0].score = Math.min(Math.max(0, teams[0].score), 99);
+        teams[1].score = Math.min(Math.max(0, teams[1].score), 99);
+
+        window.electron.ipcRenderer.send(`updateSeriesScore`, $state.snapshot(teams));
+    };
+
+    const updateTeamData = (_e: unknown) => {
+        window.electron.ipcRenderer.send(`updateTeamData`, $state.snapshot(teams));
+    };
 </script>
 
 <header>
     <h1 class="text-center mt-3">Vesper's BARL</h1>
+    <p class="text-center form-text">Broadcasting Assistant for Rocket League</p>
 </header>
 <main class="container">
     <div class="mt-5">
-        <h3 class="font-lg">Match Info</h3>
+        <h3 class="text-center">Match Info</h3>
         <div class="d-grid gap-2">
             <hr>
             <div class="row g-2">
@@ -54,10 +96,10 @@
                     </div>
                 </div>
                 <div class="col">
-                    <input type="text" id="series-text" class="form-control" placeholder="Title Text">
+                    <input type="text" id="series-text" class="form-control" placeholder="Title Text" bind:value={config.titleText} onchange={updateConfig}>
                 </div>
                 <div class="col">
-                    <input type="text" id="top-info-text" class="form-control" placeholder="Series Text">
+                    <input type="text" id="top-info-text" class="form-control" placeholder="Series Text" bind:value={config.seriesText} onchange={updateConfig}>
                 </div>
             </div>
             <div class="row g-2">
@@ -68,7 +110,7 @@
                     </button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-success w-100" disabled>
+                    <button class="btn btn-success w-100" onclick={switchTeamData}>
                         <FontAwesomeIcon icon={faArrowRightArrowLeft} />
                         Switch Teams
                     </button>
@@ -98,14 +140,14 @@
                 <div class="col">
                     <div class="d-flex">
                         <label for="team-series-score-1">Series Score</label>
-                        <input type="number" name="team-series-score-1" class="form-control ms-3" placeholder="0">
+                        <input type="number" name="team-series-score-1" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[0].score} onchange={updateSeriesScore}>
                     </div>
                 </div>
                 <div class="col-2"></div>
                 <div class="col">
                     <div class="d-flex">
                         <label for="team-series-score-2">Series Score</label>
-                        <input type="number" name="team-series-score-2" class="form-control ms-3" placeholder="0">
+                        <input type="number" name="team-series-score-2" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[1].score} onchange={updateSeriesScore}>
                     </div>
                 </div>
             </div>
@@ -113,14 +155,14 @@
                 <div class="col">
                     <div class="d-flex">
                         <label for="team-name-1">Name</label>
-                        <input type="text" name="team-name-1" class="form-control ms-3" placeholder="BLUE">
+                        <input type="text" name="team-name-1" class="form-control ms-3" placeholder="BLUE" bind:value={teams[0].name} onchange={updateTeamData}>
                     </div>
                 </div>
                 <div class="col-2"></div>
                 <div class="col">
                     <div class="d-flex">
                         <label for="team-name-2">Name</label>
-                        <input type="text" name="team-name-2" class="form-control ms-3" placeholder="ORANGE">
+                        <input type="text" name="team-name-2" class="form-control ms-3" placeholder="ORANGE" bind:value={teams[1].name} onchange={updateTeamData}>
                     </div>
                 </div>
             </div>
