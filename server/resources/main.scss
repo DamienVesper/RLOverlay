@@ -1,0 +1,14 @@
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+* {
+    box-sizing: border-box;
+    transition: 0.3s ease-in-out all;
+}
+
+html, body {
+    width: 100% !important;
+    max-height: 100% !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+}

@@ -3,7 +3,7 @@ import { WebSocket } from "ws";
 import { config } from "./config.js";
 import { core } from "./core.js";
 
-import { Events } from "../../shared/src/net/SOS.js";
+import { Events } from "../../../shared/src/net/SOS.js";
 
 import { Packet } from "./packets/Packet.js";
 import { MatchCreatedPacket } from "./packets/MatchCreated.js";
@@ -23,7 +23,7 @@ export class Relay {
     ws = new WebSocket(`ws://${config.sos.host}:${config.sos.port}`);
 
     constructor () {
-        this.ws.onopen = function (open) {
+        this.ws.onopen = function (_open) {
             core.logger.info(`SOS Relay`, `Connected to Rocket League.`);
         };
 
@@ -90,7 +90,7 @@ export class Relay {
             core.logger.error(`SOS Relay`, err?.message ?? JSON.stringify(err));
         };
 
-        this.ws.onclose = function (close) {
+        this.ws.onclose = function (_close) {
             core.logger.info(`SOS Relay`, `Connection has been closed.`);
             process.exit();
         };

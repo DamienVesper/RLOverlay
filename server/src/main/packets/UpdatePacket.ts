@@ -1,6 +1,6 @@
 import { core } from "../core.js";
 
-import { UpdateState } from "../../../shared/src/net/SOS.js";
+import { UpdateState } from "../../../../shared/src/net/SOS.js";
 import { Packet } from "./Packet.js";
 
 import { Player } from "../modules/Player.js";
@@ -16,7 +16,7 @@ export interface GameMsg {
 }
 
 export class UpdatePacket extends Packet<UpdateState, GameMsg> {
-    serialize = (raw: UpdateState) => {
+    serialize = (_raw: UpdateState) => {
         const players = [...core.game.players.values()].map(({ id, teamId, name, boost, stats }) => ({
             id,
             teamId,

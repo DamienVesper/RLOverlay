@@ -1,4 +1,4 @@
-import { Team as TeamData } from "../../../shared/src/net/SOS.js";
+import { Team as TeamData } from "../../../../shared/src/net/SOS.js";
 import { Player } from "./Player.js";
 
 export class Team {

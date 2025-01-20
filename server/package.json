@@ -1,16 +1,35 @@
 {
   "name": "@rl-overlay/server",
   "private": true,
-  "type": "module",
+  "main": "out/main/index.js",
   "scripts": {
-    "build": "rm -r dist/* && bun --bun build --compile --minify --sourcemap ./src/index.ts --outfile dist/VBARL",
-    "dev": "bun dev"
+    "build": "electron-vite build",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:linux": "npm run build && electron-builder --linux",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/svelte-fontawesome": "^0.2.3",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
     "webview-bun": "^2.3.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.17"
+    "@electron-toolkit/preload": "^3.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@types/node": "^22.10.7",
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "sass-embedded": "^1.83.4",
+    "typescript": "^5.7.3"
   }
 }

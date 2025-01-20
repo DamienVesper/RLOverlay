@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
      * Vite environment variables.
      */
     process.env = {
-        ...process.env,
+        ...process.env
     };
 
     return {
@@ -16,9 +16,9 @@ export default defineConfig(({ mode }) => {
             cssMinify: `lightningcss`,
             rollupOptions: {
                 output: {
-                    manualChunks(id, chunkInfo) {
-                        if (id.includes("node_modules")) return "vendor";
-                        if (id.includes("shared")) return "shared";
+                    manualChunks (id, chunkInfo) {
+                        if (id.includes(`node_modules`)) return `vendor`;
+                        if (id.includes(`shared`)) return `shared`;
                     }
                 }
             }
@@ -27,17 +27,17 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
             strictPort: true,
-            host: "0.0.0.0"
+            host: `0.0.0.0`
         },
 
         preview: {
             port: 3000,
             strictPort: true,
-            host: "0.0.0.0"
+            host: `0.0.0.0`
         },
 
         css: {
-            devSourcemap: mode === "development"
+            devSourcemap: mode === `development`
         },
 
         json: {

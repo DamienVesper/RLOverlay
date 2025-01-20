@@ -1,4 +1,4 @@
-import { Player as PlayerData } from "../../../shared/src/net/SOS.js";
+import { Player as PlayerData } from "../../../../shared/src/net/SOS.js";
 
 export class Player {
     id: PlayerData[`id`];

@@ -1,18 +1,11 @@
 {
     "extends": "./tsconfig.json",
     "include": [
-        "**/src/**/*.ts",
-        "client/src/**/*.svelte",
-        "svelte-kit/ambient.d.ts",
-        "svelte-kit/non-ambient.d.ts",
-        "svelte-kit/types/**/$types.d.ts",
-        "eslint.config",
-        "playwright.config.ts",
-        "postcss.config",
-        "stylelint.config",
-        "svelte.config",
-        "tailwind.config.ts",
-        "vite.config.ts"
+        "**/*.ts",
+        "**/*.mts",
+        "**/*.js",
+        "**/*.mjs",
+        "**/*.svelte"
     ],
     "exclude": [
         "node_modules",
