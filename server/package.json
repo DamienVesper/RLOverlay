@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bun --bun electrobun build",
-    "dev": "bun install && electrobun build && electrobun dev"
+    "build": "rm -r dist/* && bun --bun build --compile --minify --sourcemap ./src/index.ts --outfile dist/VBARL",
+    "dev": "bun dev"
   },
   "dependencies": {
     "webview-bun": "^2.3.0",
