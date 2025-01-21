@@ -2,17 +2,7 @@ import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 
-import { config } from "./src/config";
-
 export default defineConfig(({ mode }) => {
-    /**
-     * Vite environment variables.
-     */
-    process.env = {
-        ...process.env,
-        WS_URL: `${config.wsServer.ssl ? `wss` : `ws`}://${config.wsServer.ip}:${config.wsServer.port}`
-    };
-
     return {
         resolve: {
             dedupe: [`svelte`]
