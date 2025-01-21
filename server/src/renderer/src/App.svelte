@@ -34,7 +34,7 @@
         window.electron.ipcRenderer.on(`sendSeriesScore`, (_e, newTeams) => {
             teams[0].score = newTeams[0].score;
             teams[1].score = newTeams[1].score;
-        }); 
+        });
 
         window.electron.ipcRenderer.on(`sendTeamData`, (_e, newTeams) => {
             teams[0].name = newTeams[0].customName;
@@ -57,7 +57,7 @@
 
         updateSeriesScore(void 0);
         updateTeamData(void 0);
-    }
+    };
 
     const resetTeamData = (_e: unknown) => {
         window.electron.ipcRenderer.send(`resetTeamData`);
