@@ -46,6 +46,7 @@
 
     const updateConfig = (_e: unknown) => {
         window.electron.ipcRenderer.send(`updateServerConfig`, $state.snapshot(config));
+        console.log(`updating...`);
     };
 
     const resetSeriesScore = (_e: unknown) => {

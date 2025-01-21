@@ -3,6 +3,7 @@
   "description": "Vesper's Broadcasting Assistant for Rocket League",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "main": "out/main/index.js",
   "author": "DamienVesper",
   "scripts": {
@@ -20,6 +21,7 @@
     "@fortawesome/svelte-fontawesome": "^0.2.3",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "electron-store": "^10.0.0",
     "jquery": "^3.7.1",
     "webview-bun": "^2.3.0",
     "ws": "^8.18.0"

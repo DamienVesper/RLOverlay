@@ -1,8 +1,10 @@
+import { store } from "./store";
+
 export const config = {
-    eventText: `RLCS`,
-    seriesText: `GAME {{game}} | BEST OF {{bo}}`,
-    seriesLimit: 0,
-    customTeamNames: [``, ``],
+    titleText: store.get(`titleText`),
+    seriesText: store.get(`seriesText`),
+    seriesLimit: store.get(`seriesLimit`),
+    customTeamNames: [store.get(`customTeamName0`), store.get(`customTeamName1`)],
 
     server: {
         host: `0.0.0.0`,
@@ -39,7 +41,7 @@ interface SOSConfig {
 }
 
 export interface Config {
-    eventText: string
+    titleText: string
     seriesText: string
     seriesLimit: number
     customTeamNames: string[]

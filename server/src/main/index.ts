@@ -1,13 +1,26 @@
 import { app, shell, ipcMain, BrowserWindow } from "electron";
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
 
-import icon from "../../resources/icon.png?asset";
-import { core } from "./core";
-
 import { join } from "path";
+
+import { core } from "./core";
 import { config } from "./config";
 
+import icon from "../../resources/icon.png?asset";
+import { store } from "./store";
+
 export let win: BrowserWindow;
+
+/**
+ * Update the local store with config values.
+ */
+const updateStore = () => {
+    store.set(`titleText`, config.titleText);
+    store.set(`seriesText`, config.seriesText);
+    store.set(`seriesLimit`, config.seriesLimit);
+    store.set(`customTeamName0`, config.customTeamNames[0]);
+    store.set(`customTeamName1`, config.customTeamNames[1]);
+};
 
 const createWindow = () => {
     win = new BrowserWindow({
@@ -17,7 +30,7 @@ const createWindow = () => {
         autoHideMenuBar: true,
         icon,
         webPreferences: {
-            preload: join(__dirname, `../preload/index.js`),
+            preload: join(__dirname, `../preload/index.mjs`),
             sandbox: false
         }
     });
@@ -58,9 +71,11 @@ void app.whenReady().then(() => {
     });
 
     ipcMain.on(`updateServerConfig`, (_e, newConfig: Omit<typeof config, `server` | `host`>) => {
-        config.eventText = newConfig.eventText;
+        config.titleText = newConfig.titleText;
         config.seriesText = newConfig.seriesText;
         config.seriesLimit = newConfig.seriesLimit;
+
+        updateStore();
     });
 
     ipcMain.on(`updateSeriesScore`, (_e, teams) => {
@@ -71,6 +86,8 @@ void app.whenReady().then(() => {
     ipcMain.on(`updateTeamData`, (_e, teams) => {
         config.customTeamNames[0] = teams[0].name;
         config.customTeamNames[1] = teams[1].name;
+
+        updateStore();
     });
 
     ipcMain.on(`resetSeriesScore`, () => {
@@ -82,6 +99,7 @@ void app.whenReady().then(() => {
         config.customTeamNames[0] = ``;
         config.customTeamNames[1] = ``;
 
+        updateStore();
         win.webContents.send(`sendTeamData`, [...core.game.teams.values()]);
     });
 
