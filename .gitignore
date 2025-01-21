@@ -7,3 +7,4 @@ out/
 
 # Random Electron stuff
 electron.vite.config.*.mjs
+original.css
