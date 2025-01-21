@@ -1,5 +1,5 @@
 {
-  "name": "@rl-overlay/vbarl",
+  "name": "vbarl",
   "description": "Vesper's Broadcasting Assistant for Rocket League",
   "version": "0.0.0",
   "private": true,
