@@ -19,7 +19,7 @@
 
 <div class="scorebug">
     <div class="title-wrapper">
-        {@html config.titleText.replace(`|`, `<span style="font-weight: normal; margin-left: 6.5px; margin-right: 6.5px;">|</span>`)}
+        {@html config.titleText.replaceAll(`|`, `<span style="font-weight: normal; margin-left: 6.5px; margin-right: 6.5px;">|</span>`)}
     </div>
     <div class="scorebug-main-wrapper">
         <div class="team-name-wrapper">
@@ -62,8 +62,8 @@
                     {/if}
                 {:else}
                     {config.seriesText
-                        .replace(`{{game}}`, (core.game.series.reduce((a, b) => a + b) + 1).toString())
-                        .replace(`{{bo}}`, config.seriesLimit === 0 ? `Unlimited` : config.seriesLimit.toString())
+                        .replaceAll(`{{game}}`, (core.game.series.reduce((a, b) => a + b) + 1).toString())
+                        .replaceAll(`{{bo}}`, config.seriesLimit === 0 ? `Unlimited` : config.seriesLimit.toString())
                     }
                 {/if}
             </span>
@@ -81,6 +81,7 @@
         text-transform: uppercase;
         color: #ffffff;
     }
+
 
     .scorebug > div {
         display: flex;

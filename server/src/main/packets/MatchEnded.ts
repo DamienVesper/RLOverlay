@@ -17,6 +17,7 @@ export class MatchEndedPacket extends Packet<MatchEnded, MatchEnded[`data`][`win
         core.game.players.clear();
 
         core.game.state = GameState.Initial;
+        core.game.sentCreationMsg = false;
 
         win.webContents.send(`sendSeriesScore`, core.game.series);
     };

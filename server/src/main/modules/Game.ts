@@ -44,6 +44,8 @@ export class Game {
     time = 0;
     isOT = false;
 
+    sentCreationMsg = false;
+
     clearSeries () {
         this.series = [0, 0];
     }

@@ -1,11 +1,19 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
     import Scorebug from "./components/Scorebug.svelte";
 
     import Replay from "./components/Replay.svelte";
     import Scoreboard from "./components/Scoreboard.svelte";
 
+    import { animateTopBar } from "./utils/animate";
+
     import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
     import "./lib/css/main.scss";
+    
+    onMount(() => {
+        animateTopBar();
+    });
 </script>
 
 <div class="ui-top-left"></div>
