@@ -1,3 +1,4 @@
+import { win } from "../index.js";
 import { core } from "../core.js";
 
 import { MatchEnded } from "../../../../shared/src/net/SOS.js";
@@ -16,5 +17,7 @@ export class MatchEndedPacket extends Packet<MatchEnded, MatchEnded[`data`][`win
         core.game.players.clear();
 
         core.game.state = GameState.Initial;
+
+        win.webContents.send(`sendSeriesScore`, core.game.series);
     };
 }

@@ -1,5 +1,4 @@
 import { core } from "../core.js";
-import { win } from "../index.js";
 
 import { GoalScored } from "../../../../shared/src/net/SOS.js";
 import { Packet } from "./Packet.js";
@@ -14,7 +13,5 @@ export class GoalScoredPacket extends Packet<GoalScored, typeof core.game.goalDa
             speed: raw.data.goalspeed,
             scorer: raw.data.scorer
         };
-
-        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
     };
 }

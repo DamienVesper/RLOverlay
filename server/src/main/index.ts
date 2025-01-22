@@ -5,11 +5,10 @@ import { join } from "path";
 
 import { core } from "./core";
 import { config } from "./config";
+import { store } from "./store";
+import { sendAllInit } from "./server";
 
 import icon from "../../resources/icon.png?asset";
-import { store } from "./store";
-
-import "./server";
 
 export let win: BrowserWindow;
 
@@ -65,7 +64,7 @@ void app.whenReady().then(() => {
     });
 
     ipcMain.on(`getSeriesScore`, () => {
-        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
+        win.webContents.send(`sendSeriesScore`, core.game.series);
     });
 
     ipcMain.on(`getTeamData`, () => {
@@ -78,6 +77,7 @@ void app.whenReady().then(() => {
         config.seriesLimit = newConfig.seriesLimit;
 
         updateStore();
+        sendAllInit();
     });
 
     ipcMain.on(`updateSeriesScore`, (_e, teams) => {
@@ -90,11 +90,12 @@ void app.whenReady().then(() => {
         config.customTeamNames[1] = teams[1].name;
 
         updateStore();
+        sendAllInit();
     });
 
     ipcMain.on(`resetSeriesScore`, () => {
         core.game.clearSeries();
-        win.webContents.send(`sendSeriesScore`, [...core.game.teams.values()]);
+        win.webContents.send(`sendSeriesScore`, core.game.series);
     });
 
     ipcMain.on(`resetTeamData`, () => {
@@ -102,6 +103,8 @@ void app.whenReady().then(() => {
         config.customTeamNames[1] = ``;
 
         updateStore();
+        sendAllInit();
+
         win.webContents.send(`sendTeamData`, [...core.game.teams.values()]);
     });
 

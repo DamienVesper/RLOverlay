@@ -18,6 +18,7 @@ import { MatchEndedPacket } from "./packets/MatchEnded.js";
 import { InitializedPacket } from "./packets/Initialized.js";
 import { PreCountdownBeginPacket } from "./packets/PreCountdownBegin.js";
 import { GoalScoredPacket } from "./packets/GoalScored.js";
+import { checkSocketDisconnected } from "./server.js";
 
 export class Relay {
     ws = new WebSocket(`ws://${config.sos.host}:${config.sos.port}`);
@@ -88,10 +89,14 @@ export class Relay {
             const res = packet?.serialize(data);
             if (res !== undefined) {
                 // Send the message to each of the connected WebSockets.
-                [...core.sockets.values()].forEach(x => x.send(JSON.stringify({
-                    event: data.event,
-                    data: res
-                })));
+                for (const [id, socket] of [...core.sockets.entries()]) {
+                    if (!checkSocketDisconnected(id, socket)) {
+                        socket.send(JSON.stringify({
+                            event: data.event,
+                            data: res
+                        }));
+                    }
+                }
             }
         };
 

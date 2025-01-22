@@ -1,6 +1,5 @@
-import type { WebSocket } from "uWebSockets.js";
+import type { WebSocket } from "ws";
 
-import type { WSData } from "./server.js";
 import { Relay } from "./relay.js";
 
 import { Logger } from "./modules/Logger.js";
@@ -9,7 +8,7 @@ import { Game } from "./modules/Game.js";
 
 export const core = {
     version: ``,
-    sockets: new Map<number, WebSocket<WSData>>(),
+    sockets: new Map<number, WebSocket>(),
 
     allocator: new IDAllocator(8),
 

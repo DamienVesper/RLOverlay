@@ -31,9 +31,9 @@
             config.seriesLimit = newConfig.seriesLimit;
         });
 
-        window.electron.ipcRenderer.on(`sendSeriesScore`, (_e, newTeams) => {
-            teams[0].score = newTeams[0].score;
-            teams[1].score = newTeams[1].score;
+        window.electron.ipcRenderer.on(`sendSeriesScore`, (_e, series) => {
+            teams[0].score = series[0];
+            teams[1].score = series[1];
         });
 
         window.electron.ipcRenderer.on(`sendTeamData`, (_e, newTeams) => {
@@ -46,7 +46,6 @@
 
     const updateConfig = (_e: unknown) => {
         window.electron.ipcRenderer.send(`updateServerConfig`, $state.snapshot(config));
-        console.log(`updating...`);
     };
 
     const resetSeriesScore = (_e: unknown) => {

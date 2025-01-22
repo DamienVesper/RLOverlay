@@ -1,9 +1,5 @@
-import { SvelteMap } from "svelte/reactivity";
-
 import { config } from "../config.svelte.js";
 import type { Unpacked } from "../core.svelte.js";
-
-import { Player } from "./Player.svelte.js";
 
 import type { GameMsg } from "../packets/UpdatePacket.js";
 
@@ -16,8 +12,6 @@ export class Team {
     customName: TeamData[`name`] = $state(``);
     color: TeamData[`color_primary`] = $state(``);
     score: TeamData[`score`] = $state(0);
-
-    players = new SvelteMap<string, Player>();
 
     constructor (data: Unpacked<GameMsg[`teams`]>) {
         this.update(data);

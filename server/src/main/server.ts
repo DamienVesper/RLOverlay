@@ -1,6 +1,4 @@
-import { App, HttpResponse, type WebSocket } from "uWebSockets.js";
-
-import { WebSocketServer } from "ws";
+import { type WebSocket, WebSocketServer } from "ws";
 
 import { core } from "./core";
 import { config } from "./config";
@@ -14,15 +12,20 @@ export interface WSData {
     id: number
 }
 
-/**
- * TODO: Reverse proxy support.
- */
-server.on(`connection`, (socket, req) => {
-    const id = core.allocator.getNextId();
+export const checkSocketDisconnected = (id: number, socket: WebSocket) => {
+    if (socket.readyState === socket.CLOSED) {
+        core.logger.debug(`REST`, `A socket [#${id}] disconnected from the relay.`);
 
-    core.sockets.set(id, socket);
-    core.logger.debug(`REST`, `"${req.socket.remoteAddress}" [#${id}] connected to the relay.`);
+        core.sockets.delete(id);
+        core.allocator.give(id);
 
+        return true;
+    }
+
+    return false;
+};
+
+const sendInit = (socket: WebSocket) => {
     socket.send(JSON.stringify({
         event: `init`, // ClientEvents.Init
         data: {
@@ -33,16 +36,23 @@ server.on(`connection`, (socket, req) => {
             msg: core.game.serialize()
         }
     }));
-});
+};
 
-server.on(`close`, () => {
-    // TODO: Detect which WebSocket closes and remove it from the map (without using socket.io, please).
-    core.logger.debug(`REST`, `A socket disconnected from the relay.`);
+export const sendAllInit = () => {
+    for (const [id, socket] of [...core.sockets.entries()])
+        if (!checkSocketDisconnected(id, socket)) sendInit(socket);
+};
 
-    // const userData = socket.getUserData();
+/**
+ * TODO: Reverse proxy support.
+ */
+server.on(`connection`, (socket, req) => {
+    const id = core.allocator.getNextId();
 
-    // core.sockets.delete(userData.id);
-    // core.allocator.give(userData.id);
+    core.sockets.set(id, socket);
+    core.logger.debug(`REST`, `"${req.socket.remoteAddress}" [#${id}] connected to the relay.`);
+
+    sendInit(socket);
 });
 
 server.on(`listening`, () => {

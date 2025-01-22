@@ -1,11 +1,7 @@
-import { SvelteMap } from "svelte/reactivity";
-
 import { config } from "../config.svelte.js";
 
-import { Player } from "./Player.svelte.js";
-import { Team } from "./Team.svelte.js";
-
 import type { Packet } from "../packets/Packet.js";
+import { InitPacket } from "../packets/Init.js";
 import { MatchCreatedPacket } from "../packets/MatchCreated.js";
 import { MatchEndedPacket } from "../packets/MatchEnded.js";
 import { PreCountdownBeginPacket } from "../packets/PreCountdownBegin.js";
@@ -14,7 +10,7 @@ import { ReplayStartPacket } from "../packets/ReplayStart.js";
 import { ReplayEndPacket } from "../packets/ReplayEnd.js";
 import { GoalScoredPacket } from "../packets/GoalScored.js";
 import { StatFeedPacket } from "../packets/StatFeed.js";
-import { UpdatePacket } from "../packets/UpdatePacket.js";
+import { UpdatePacket, type GameMsg } from "../packets/UpdatePacket.js";
 
 import { Events } from "../../../shared/src/net/SOS.js";
 
@@ -35,8 +31,8 @@ export enum ClientEvents {
 export class Game {
     state = $state(GameState.Initial);
 
-    teams = new SvelteMap<number, Team>();
-    players = new SvelteMap<Player[`id`], Player>();
+    teams: GameMsg[`teams`] = $state([]);
+    players: GameMsg[`players`] = $state([]);
 
     series: [number, number] = $state([0, 0]);
     seriesLimit = $state(config.seriesLimit);
@@ -66,6 +62,9 @@ export class Game {
 
             let packet: Packet<any> | undefined = undefined;
             switch (data.event) {
+                case ClientEvents.Init:
+                    packet = new InitPacket();
+                    break;
                 case Events.MatchCreated:
                     packet = new MatchCreatedPacket();
                     break;
