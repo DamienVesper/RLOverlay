@@ -1,68 +1,50 @@
 import { App, HttpResponse, type WebSocket } from "uWebSockets.js";
 
+import { WebSocketServer } from "ws";
+
 import { core } from "./core";
 import { config } from "./config";
 
-export const app = App();
-const textDecoder = new TextDecoder();
-
-function getIP (res: HttpResponse) {
-    const IP = textDecoder.decode(res.getRemoteAddressAsText());
-    const proxyIP = textDecoder.decode(res.getProxiedRemoteAddressAsText());
-
-    // Proxy IP should be an empty string when not proxied.
-    return proxyIP || IP;
-}
+export const server = new WebSocketServer({
+    host: config.server.host,
+    port: config.server.port
+});
 
 export interface WSData {
-    IP: string
     id: number
 }
 
-app.ws<WSData>(`/`, {
-    idleTimeout: 10,
-    maxPayloadLength: 2, // 2 ** 6 = 64
+/**
+ * TODO: Reverse proxy support.
+ */
+server.on(`connection`, (socket, req) => {
+    const id = core.allocator.getNextId();
 
-    upgrade (res, req, context) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function, prefer-arrow-callback
-        res.onAborted(function () {});
+    core.sockets.set(id, socket);
+    core.logger.debug(`REST`, `"${req.socket.remoteAddress}" [#${id}] connected to the relay.`);
 
-        res.upgrade(
-            {
-                IP: getIP(res),
-                id: core.allocator.getNextId()
-            },
-            req.getHeader(`sec-websocket-key`),
-            req.getHeader(`sec-websocket-protocol`),
-            req.getHeader(`sec-websocket-extensions`),
-            context
-        );
-    },
+    socket.send(JSON.stringify({
+        event: `init`, // ClientEvents.Init
+        data: {
+            titleText: config.titleText,
+            seriesText: config.seriesText,
+            seriesLimit: config.seriesLimit,
+            customTeamNames: config.customTeamNames,
+            msg: core.game.serialize()
+        }
+    }));
+});
 
-    open (socket: WebSocket<WSData>) {
-        const userData = socket.getUserData();
+server.on(`close`, () => {
+    // TODO: Detect which WebSocket closes and remove it from the map (without using socket.io, please).
+    core.logger.debug(`REST`, `A socket disconnected from the relay.`);
 
-        core.sockets.set(userData.id, socket);
-        core.logger.debug(`REST`, `"${userData.IP}" [#${userData.id}] connected to the relay.`);
+    // const userData = socket.getUserData();
 
-        socket.send(JSON.stringify({
-            event: `init`, // ClientEvents.Init
-            data: {
-                titleText: config.titleText,
-                seriesText: config.seriesText,
-                seriesLimit: config.seriesLimit,
-                customTeamNames: config.customTeamNames,
-                msg: core.game.serialize()
-            }
-        }));
-    },
+    // core.sockets.delete(userData.id);
+    // core.allocator.give(userData.id);
+});
 
-    close (socket: WebSocket<WSData>, _code, _message) {
-        const userData = socket.getUserData();
-
-        core.sockets.delete(userData.id);
-        core.allocator.give(userData.id);
-
-        core.logger.debug(`REST`, `"${userData.IP}" [#${userData.id}] disconnected from the relay.`);
-    }
+server.on(`listening`, () => {
+    core.logger.info(`REST`, `WebSocket server bound to "${config.server.host}:${config.server.port}".`);
 });

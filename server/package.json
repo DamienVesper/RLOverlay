@@ -23,8 +23,6 @@
     "bootstrap": "^5.3.3",
     "electron-store": "^10.0.0",
     "jquery": "^3.7.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.51.0",
-    "webview-bun": "^2.3.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
@@ -32,6 +30,7 @@
     "@electron-toolkit/tsconfig": "^1.0.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@types/node": "^22.10.7",
+    "@types/ws": "^8.5.13",
     "electron": "34.0.0",
     "electron-builder": "^25.1.8",
     "electron-vite": "^2.3.0",

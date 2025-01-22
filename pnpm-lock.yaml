@@ -108,12 +108,6 @@ importers:
       jquery:
         specifier: ^3.7.1
         version: 3.7.1
-      uWebSockets.js:
-        specifier: github:uNetworking/uWebSockets.js#v20.51.0
-        version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/6609a88ffa9a16ac5158046761356ce03250a0df
-      webview-bun:
-        specifier: ^2.3.0
-        version: 2.3.0
       ws:
         specifier: ^8.18.0
         version: 8.18.0
@@ -130,6 +124,9 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.10.7
+      '@types/ws':
+        specifier: ^8.5.13
+        version: 8.5.13
       electron:
         specifier: 34.0.0
         version: 34.0.0
@@ -921,6 +918,9 @@ packages:
 
   '@types/verror@1.10.10':
     resolution: {integrity: sha512-l4MM0Jppn18hb9xmM6wwD1uTdShpf9Pn80aXTStnK1C94gtPvJcV2FrDmbOQUAQfJ1cKZHktkQUDwEqaAKXMMg==}
+
+  '@types/ws@8.5.13':
+    resolution: {integrity: sha512-osM/gWBTPKgHV8XkTunnegTRIsvF6owmf5w+JtAfOw472dptdm0dlGv4xCt6GwQRcC2XVOvvRE/0bAoQcL2QkA==}
 
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -2907,10 +2907,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/6609a88ffa9a16ac5158046761356ce03250a0df:
-    resolution: {tarball: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/6609a88ffa9a16ac5158046761356ce03250a0df}
-    version: 20.51.0
-
   uint8array-extras@1.4.0:
     resolution: {integrity: sha512-ZPtzy0hu4cZjv3z5NW9gfKnNLjoz4y6uv4HlelAjDK7sY/xOkKZv9xK/WQpcsBB3jEybChz9DPC2U/+cusjJVQ==}
     engines: {node: '>=18'}
@@ -3022,9 +3018,6 @@ packages:
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
-
-  webview-bun@2.3.0:
-    resolution: {integrity: sha512-SYOksNzgjTajM+xhqdbhd1xzmCfDyqdmkLGSyZ5i30HRR5KTZJN6+cyE+OGCBFoPFBPmskUM3R99YXtQJqP7Qg==}
 
   when-exit@2.1.4:
     resolution: {integrity: sha512-4rnvd3A1t16PWzrBUcSDZqcAmsUIy4minDXT/CZ8F2mVDgd65i4Aalimgz1aQkRGU0iH5eT5+6Rx2TK8o443Pg==}
@@ -3815,6 +3808,10 @@ snapshots:
 
   '@types/verror@1.10.10':
     optional: true
+
+  '@types/ws@8.5.13':
+    dependencies:
+      '@types/node': 22.10.7
 
   '@types/yauzl@2.10.3':
     dependencies:
@@ -6019,8 +6016,6 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  uWebSockets.js@https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/6609a88ffa9a16ac5158046761356ce03250a0df: {}
-
   uint8array-extras@1.4.0: {}
 
   undici-types@6.19.8: {}
@@ -6090,8 +6085,6 @@ snapshots:
   wcwidth@1.0.1:
     dependencies:
       defaults: 1.0.4
-
-  webview-bun@2.3.0: {}
 
   when-exit@2.1.4: {}
 

@@ -9,6 +9,8 @@ import { config } from "./config";
 import icon from "../../resources/icon.png?asset";
 import { store } from "./store";
 
+import "./server";
+
 export let win: BrowserWindow;
 
 /**

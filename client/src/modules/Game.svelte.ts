@@ -95,7 +95,7 @@ export class Game {
                     break;
             }
 
-            packet?.deserialize(data);
+            packet?.deserialize(data.data);
         };
     }
 

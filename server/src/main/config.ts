@@ -23,14 +23,6 @@ export const config = {
 interface ServerConfig {
     host: string
     port: number
-
-    /**
-     * SSL options. Not used if running locally, or behind NGINX.
-     */
-    ssl?: {
-        keyFile: string
-        certFile: string
-    }
 }
 
 interface SOSConfig {
