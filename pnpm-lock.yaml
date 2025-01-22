@@ -69,6 +69,9 @@ importers:
       lightningcss:
         specifier: ^1.29.1
         version: 1.29.1
+      sass-embedded:
+        specifier: ^1.83.4
+        version: 1.83.4
       svelte:
         specifier: ^5.19.1
         version: 5.19.1

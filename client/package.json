@@ -23,6 +23,7 @@
     "@types/node": "^22.10.7",
     "@types/obs-studio": "^2.17.2",
     "lightningcss": "^1.29.1",
+    "sass-embedded": "^1.83.4",
     "svelte": "^5.19.1",
     "svgo": "^3.3.2",
     "ts-node": "^10.9.2",

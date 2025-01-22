@@ -1,6 +1,8 @@
 import { SvelteMap } from "svelte/reactivity";
 
-import { core, type Unpacked } from "../core.svelte.js";
+import { config } from "../config.svelte.js";
+import type { Unpacked } from "../core.svelte.js";
+
 import { Player } from "./Player.svelte.js";
 
 import type { GameMsg } from "../packets/UpdatePacket.js";
@@ -24,7 +26,7 @@ export class Team {
     update = (data: Unpacked<GameMsg[`teams`]>) => {
         this.id = data.id;
         this.name = data.name;
-        this.customName = core.customTeamNames[this.id];
+        this.customName = config.customTeamNames[this.id];
 
         this.color = data.color;
         this.score = data.score;

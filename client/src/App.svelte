@@ -1,7 +1,8 @@
 <script lang="ts">
     import Scorebug from "./components/Scorebug.svelte";
 
-    import "./lib/css/main.css";
+    import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+    import "./lib/css/main.scss";
 </script>
 
 <div class="ui-top-center">

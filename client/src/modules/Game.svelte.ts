@@ -1,6 +1,7 @@
 import { SvelteMap } from "svelte/reactivity";
 
-import { core } from "../core.svelte.js";
+import { config } from "../config.svelte.js";
+
 import { Player } from "./Player.svelte.js";
 import { Team } from "./Team.svelte.js";
 
@@ -38,7 +39,7 @@ export class Game {
     players = new SvelteMap<Player[`id`], Player>();
 
     series: [number, number] = $state([0, 0]);
-    seriesLimit = $state(core.seriesLimit);
+    seriesLimit = $state(config.seriesLimit);
 
     goalData = $state({
         speed: 0,
@@ -53,7 +54,7 @@ export class Game {
     time = $state(0);
     isOT = $state(false);
 
-    ws = new WebSocket(`${core.wsServer.ssl ? `wss` : `ws`}://${core.wsServer.ip}:${core.wsServer.port}`);
+    ws = new WebSocket(`${config.wsServer.ssl ? `wss` : `ws`}://${config.wsServer.ip}:${config.wsServer.port}`);
 
     constructor () {
         this.ws.onopen = function (_open) {

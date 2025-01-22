@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { config } from "../config.svelte";
     import { core } from "../core.svelte";
 
     const formatTime = (time: number) => {
@@ -17,7 +18,7 @@
 </script>
 
 <div class="title-wrapper">
-    <span>{core.titleText}</span>
+    <span>{config.titleText}</span>
 </div>
 <div class="scorebug-wrapper">
     <div class="team-name-wrapper">
@@ -33,7 +34,7 @@
 <div class="series-wrapper">
     <div class="series-indicator"></div>
     <div class="series-text">
-        <span>{core.seriesText}</span>
+        <span>{config.seriesText}</span>
     </div>
     <div class="series-indicator"></div>
 </div>
