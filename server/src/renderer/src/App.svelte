@@ -60,6 +60,8 @@
     };
 
     const resetTeamData = (_e: unknown) => {
+        teams[0].name = ``;
+        teams[1].name = ``;
         window.electron.ipcRenderer.send(`resetTeamData`);
     };
 
