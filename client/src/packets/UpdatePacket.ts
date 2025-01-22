@@ -7,6 +7,7 @@ import { Team } from "../modules/Team.svelte";
 import { GameState } from "../modules/Game.svelte";
 
 export interface GameMsg {
+    state: GameState
     players: Array<{ id: string, teamId: number, name: string, boost: number, stats: Player[`stats`] }>
     teams: Array<{ id: number, name: string, color: string, score: number }>
     target: string
@@ -17,8 +18,7 @@ export interface GameMsg {
 
 export class UpdatePacket extends Packet<GameMsg> {
     deserialize = (raw: GameMsg) => {
-        // Set game state if not already done so.
-        if (core.game.state !== GameState.Playing) core.game.state = GameState.Playing;
+        core.game.state = raw.state;
 
         for (const team of raw.teams) {
             const tm = core.game.teams.get(team.id);

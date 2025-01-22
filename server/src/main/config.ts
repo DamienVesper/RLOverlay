@@ -4,7 +4,10 @@ export const config = {
     titleText: store.get(`titleText`),
     seriesText: store.get(`seriesText`),
     seriesLimit: store.get(`seriesLimit`),
-    customTeamNames: [store.get(`customTeamName0`), store.get(`customTeamName1`)],
+    customTeamNames: [
+        store.get(`customTeamName0`),
+        store.get(`customTeamName1`)
+    ],
 
     server: {
         host: `0.0.0.0`,

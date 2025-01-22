@@ -84,6 +84,15 @@ export class Relay {
             }
 
             packet?.deserialize(data);
+
+            const res = packet?.serialize(data);
+            if (res !== undefined) {
+                // Send the message to each of the connected WebSockets.
+                [...core.sockets.values()].forEach(x => x.send(JSON.stringify({
+                    event: data.event,
+                    data: res
+                })));
+            }
         };
 
         this.ws.onerror = function (err) {

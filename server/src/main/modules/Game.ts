@@ -12,6 +12,16 @@ export enum GameState {
     MatchEnded
 }
 
+export interface GameMsg {
+    state: GameState
+    players: Array<{ id: string, teamId: number, name: string, boost: number, stats: Player[`stats`] }>
+    teams: Array<{ id: number, name: string, color: string, score: number }>
+    target: string
+    time: number
+    isOT: boolean
+    series: [number, number]
+}
+
 export class Game {
     state = GameState.Initial;
 
@@ -36,5 +46,33 @@ export class Game {
 
     clearSeries () {
         this.series = [0, 0];
+    }
+
+    serialize () {
+        const players = [...this.players.values()].map(({ id, teamId, name, boost, stats }) => ({
+            id,
+            teamId,
+            name,
+            boost,
+            stats
+        }));
+
+        const teams = [...this.teams.values()].map(({ id, name, customName, color, score }) => ({
+            id,
+            name,
+            customName,
+            color,
+            score
+        }));
+
+        return {
+            state: this.state,
+            players,
+            teams,
+            target: this.target,
+            time: this.time,
+            isOT: this.isOT,
+            series: this.series
+        } satisfies GameMsg as GameMsg;
     }
 }

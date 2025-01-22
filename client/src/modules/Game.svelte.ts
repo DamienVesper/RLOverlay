@@ -29,7 +29,7 @@ export enum GameState {
 }
 
 export enum ClientEvents {
-    Config = `config`
+    Init = `init`
 }
 
 export class Game {

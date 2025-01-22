@@ -5,44 +5,10 @@ import { Packet } from "./Packet.js";
 
 import { Player } from "../modules/Player.js";
 import { Team } from "../modules/Team.js";
-import { GameState } from "../modules/Game.js";
-
-export interface GameMsg {
-    players: Array<{ id: string, teamId: number, name: string, boost: number, stats: Player[`stats`] }>
-    teams: Array<{ id: number, name: string, color: string, score: number }>
-    target: string
-    time: number
-    isOT: boolean
-    series: [number, number]
-}
+import { GameMsg, GameState } from "../modules/Game.js";
 
 export class UpdatePacket extends Packet<UpdateState, GameMsg> {
-    serialize = (_raw: UpdateState) => {
-        const players = [...core.game.players.values()].map(({ id, teamId, name, boost, stats }) => ({
-            id,
-            teamId,
-            name,
-            boost,
-            stats
-        }));
-
-        const teams = [...core.game.teams.values()].map(({ id, name, customName, color, score }) => ({
-            id,
-            name,
-            customName,
-            color,
-            score
-        }));
-
-        return {
-            players,
-            teams,
-            target: core.game.target,
-            time: core.game.time,
-            isOT: core.game.isOT,
-            series: core.game.series
-        } satisfies GameMsg as GameMsg;
-    };
+    serialize = (_raw: UpdateState) => core.game.serialize();
 
     deserialize = (raw: UpdateState) => {
         const { data } = raw;
