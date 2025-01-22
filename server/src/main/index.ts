@@ -83,6 +83,8 @@ void app.whenReady().then(() => {
     ipcMain.on(`updateSeriesScore`, (_e, teams) => {
         core.game.series[0] = teams[0].score;
         core.game.series[1] = teams[1].score;
+
+        sendAllInit();
     });
 
     ipcMain.on(`updateTeamData`, (_e, teams) => {

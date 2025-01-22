@@ -46,7 +46,7 @@
     </div>
     <div class="series-wrapper">
         <div class="series-indicator">
-            {#each { length: Math.ceil(core.game.seriesLimit / 2) } as _, i}
+            {#each { length: Math.ceil(config.seriesLimit / 2) } as _, i}
                 <div class={core.game.series[0] > i ? `series-blue` : `series-empty`}></div>
             {/each}
         </div>
@@ -69,8 +69,8 @@
             </span>
         </div>
         <div class="series-indicator">
-            {#each { length: Math.ceil(core.game.seriesLimit / 2) } as _, i}
-                <div class={core.game.series[0] > i ? `series-orange` : `series-empty`}></div>
+            {#each { length: Math.ceil(config.seriesLimit / 2) } as _, i}
+                <div class={core.game.series[1] > i ? `series-orange` : `series-empty`}></div>
             {/each}
         </div>
     </div>
@@ -105,8 +105,8 @@
 
     .scorebug-main-wrapper {
         > div {
-            height: 100%;
             display: flex;
+            height: 100%;
         }
 
         .team-name-wrapper {
@@ -203,11 +203,43 @@
         color: #dee2e6;
 
         .series-indicator {
+            align-self: flex-start;
+            padding: 4px 4px;
+
+            display: flex;
             background: #1a1c22;
+            width: 325px;
+
+            div {
+                width: 45px;
+                height: 10px;
+
+                border-radius: 2.5px;
+
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .series-empty {
+                background: #000000;
+            }
 
             .series-blue {
-
+                background: #027dd1;
             }
+
+            .series-orange {
+                background: #fc6b21;
+            }
+        }
+
+        .series-indicator:nth-child(1) {
+            flex-direction: row-reverse;
+            border-bottom-left-radius: 5px;
+        }
+
+        .series-indicator:nth-child(3) {
+            border-bottom-right-radius: 5px;
         }
 
         .series-text {
@@ -223,10 +255,7 @@
 
             .series-text-default {
                 display: flex;
-
-                > span:first-child, > span:last-child {
-                    flex-grow: 1;
-                }
+                justify-content: space-evenly;
 
                 > span:nth-child(3) {
                     .scorebug-small {

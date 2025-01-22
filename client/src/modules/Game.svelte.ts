@@ -53,7 +53,7 @@ export class Game {
 
     constructor () {
         this.ws.onopen = function (_open) {
-            console.log(`opened ws.`);
+            console.log(`Connected to vBARL.`);
         };
 
         this.ws.onmessage = function (message) {

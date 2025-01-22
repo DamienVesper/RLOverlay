@@ -1,4 +1,4 @@
-export const animateTopBar = () => {
+export const animateTopBar = (delay: number) => {
     const titleWrapper = document.querySelector<HTMLDivElement>(`.title-wrapper`);
     const timerWrapper = document.querySelector<HTMLDivElement>(`.timer-wrapper`);
     const seriesWrapper = document.querySelector<HTMLDivElement>(`.series-wrapper`);
@@ -12,7 +12,7 @@ export const animateTopBar = () => {
         { opacity: 1, transform: `translateY(0)` }
     ], {
         duration: 1000,
-        delay: 500,
+        delay: 500 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -22,7 +22,7 @@ export const animateTopBar = () => {
         { opacity: 1, transform: `translateY(0)` }
     ], {
         duration: 800,
-        delay: 1200,
+        delay: 1200 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -32,7 +32,7 @@ export const animateTopBar = () => {
         { opacity: 1, transform: `translateY(0)` }
     ], {
         duration: 563,
-        delay: 1687,
+        delay: 1687 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -42,7 +42,7 @@ export const animateTopBar = () => {
         { opacity: 1, transform: `translateX(0)` }
     ], {
         duration: 1125,
-        delay: 1125,
+        delay: 1125 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     }];
@@ -52,7 +52,7 @@ export const animateTopBar = () => {
         { opacity: 1, transform: `translateX(0)` }
     ], {
         duration: 1125,
-        delay: 1125,
+        delay: 1125 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     }];

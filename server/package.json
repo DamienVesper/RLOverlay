@@ -1,7 +1,7 @@
 {
   "name": "vbarl",
-  "description": "Vesper's Broadcasting Assistant for Rocket League",
-  "version": "0.0.0",
+  "description": "Vesper's BARL",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "main": "out/main/index.js",

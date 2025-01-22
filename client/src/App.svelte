@@ -12,7 +12,7 @@
     import "./lib/css/main.scss";
     
     onMount(() => {
-        animateTopBar();
+        animateTopBar(0);
     });
 </script>
 
