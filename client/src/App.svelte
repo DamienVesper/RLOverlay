@@ -1,17 +1,14 @@
 <script lang="ts">
-    import { config } from "./config.svelte";
-    import { Game } from "./modules/Game.svelte";
+    import Scorebug from "./components/Scorebug.svelte";
 
-    const game = new Game();
+    import "./lib/css/main.css";
 </script>
 
 <div class="ui-top-center">
-    <div class="title-wrapper">{config.titleText}</div>
-    <div class="main-wrapper">
-        <div class="team-name-wrapper">{teams[0].name}</div>
-        <div class="team-score-wrapper">{teams[0].score}</div>
-        <div class="time-wrapper"></div>
-        <div class="team-score-wrapper">{teams[1].score}</div>
-        <div class="team-name-wrapper">{teams[1].name}</div>
-    </div>
+    <Scorebug />
 </div>
+<div class="ui-top-left"></div>
+<div class="ui-top-right"></div>
+<div class="ui-bottom-left"></div>
+
+<div class="ui-replay"></div>

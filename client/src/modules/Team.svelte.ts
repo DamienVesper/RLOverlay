@@ -1,24 +1,32 @@
-import { config } from "../config.svelte.js";
+import { SvelteMap } from "svelte/reactivity";
+
+import { core, type Unpacked } from "../core.svelte.js";
 import { Player } from "./Player.svelte.js";
+
+import type { GameMsg } from "../packets/UpdatePacket.js";
 
 import type { Team as TeamData } from "../../../shared/src/net/SOS.js";
 
 export class Team {
-    id: number;
+    id = $state(0);
 
-    name: TeamData[`name`];
-    customName: TeamData[`name`];
-    color: TeamData[`color_primary`];
-    score: TeamData[`score`];
+    name: TeamData[`name`] = $state(``);
+    customName: TeamData[`name`] = $state(``);
+    color: TeamData[`color_primary`] = $state(``);
+    score: TeamData[`score`] = $state(0);
 
-    players = new Map<string, Player>();
+    players = new SvelteMap<string, Player>();
 
-    constructor (id: number, data: TeamData) {
-        this.id = id;
-        this.name = data.name;
-        this.customName = config.customTeamNames[id];
-
-        this.color = data.color_primary;
-        this.score = data.score;
+    constructor (data: Unpacked<GameMsg[`teams`]>) {
+        this.update(data);
     }
+
+    update = (data: Unpacked<GameMsg[`teams`]>) => {
+        this.id = data.id;
+        this.name = data.name;
+        this.customName = core.customTeamNames[this.id];
+
+        this.color = data.color;
+        this.score = data.score;
+    };
 }

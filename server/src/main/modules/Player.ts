@@ -7,7 +7,7 @@ export class Player {
     name: PlayerData[`name`];
     boost: PlayerData[`boost`];
 
-    stats: Record<`goals` | `assists` | `saves` | `shots` | `demos`, PlayerData[`goals`]>;
+    stats: Record<`score` | `goals` | `assists` | `saves` | `shots` | `demos` | `touches`, PlayerData[`goals`]>;
 
     constructor (data: PlayerData) {
         this.id = data.id;
@@ -17,12 +17,13 @@ export class Player {
         this.boost = data.boost;
 
         this.stats = {
+            score: data.score,
             goals: data.goals,
             assists: data.assists,
             saves: data.saves,
             shots: data.shots,
-            demos: data.demos
-            // Could add touches here, as of right now don't see a necessity for them.
+            demos: data.demos,
+            touches: data.touches
         };
     }
 }

@@ -11,6 +11,7 @@ export interface GameMsg {
     players: Array<{ id: string, teamId: number, name: string, boost: number, stats: Player[`stats`] }>
     teams: Array<{ id: number, name: string, color: string, score: number }>
     target: string
+    time: number
     isOT: boolean
     series: [number, number]
 }
@@ -40,7 +41,7 @@ export class UpdatePacket extends Packet<UpdateState, GameMsg> {
             time: core.game.time,
             isOT: core.game.isOT,
             series: core.game.series
-        };
+        } satisfies GameMsg as GameMsg;
     };
 
     deserialize = (raw: UpdateState) => {

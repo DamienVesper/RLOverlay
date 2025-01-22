@@ -10,6 +10,6 @@ export class PodiumStartPacket extends Packet<PodiumStart, GameState> {
 
     deserialize = (_raw: PodiumStart) => {
         core.game.state = GameState.Podium;
-        core.logger.debug(`OBS`, `Requesting scene transition to "RL (Podium)".`);
+        core.logger.debug(`OBS`, `Requesting scene transition to "RL (Stats)".`);
     };
 }

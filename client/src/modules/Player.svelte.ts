@@ -1,28 +1,43 @@
+import type { Unpacked } from "../core.svelte.js";
+
+import type { GameMsg } from "../packets/UpdatePacket.js";
+
 import type { Player as PlayerData } from "../../../shared/src/net/SOS.js";
 
 export class Player {
-    id: PlayerData[`id`];
-    teamId: PlayerData[`team`];
+    id: PlayerData[`id`] = $state(``);
+    teamId: PlayerData[`team`] = $state(0);
 
-    name: PlayerData[`name`];
-    boost: PlayerData[`boost`];
+    name: PlayerData[`name`] = $state(``);
+    boost: PlayerData[`boost`] = $state(0);
 
-    stats: Record<`goals` | `assists` | `saves` | `shots` | `demos`, PlayerData[`goals`]>;
+    stats: Record<`score` | `goals` | `assists` | `saves` | `shots` | `demos` | `touches`, PlayerData[`goals`]> = $state({
+        score: 0,
+        goals: 0,
+        assists: 0,
+        saves: 0,
+        shots: 0,
+        demos: 0,
+        touches: 0
+    });
 
-    constructor (data: PlayerData) {
+    constructor (data: Unpacked<GameMsg[`players`]>) {
+        this.update(data);
+    }
+
+    update = (data: Unpacked<GameMsg[`players`]>) => {
         this.id = data.id;
-        this.teamId = data.team;
+        this.teamId = data.teamId;
 
         this.name = data.name;
         this.boost = data.boost;
 
-        this.stats = {
-            goals: data.goals,
-            assists: data.assists,
-            saves: data.saves,
-            shots: data.shots,
-            demos: data.demos
-            // Could add touches here, as of right now don't see a necessity for them.
-        };
-    }
+        this.stats.score = data.stats.score;
+        this.stats.goals = data.stats.goals;
+        this.stats.assists = data.stats.assists;
+        this.stats.saves = data.stats.saves;
+        this.stats.shots = data.stats.shots;
+        this.stats.demos = data.stats.demos;
+        this.stats.touches = data.stats.touches;
+    };
 }

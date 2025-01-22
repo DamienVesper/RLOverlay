@@ -1,4 +1,6 @@
-export const config = $state({
+import { Game } from "./modules/Game.svelte";
+
+export const core = $state({
     titleText: ``,
     seriesText: ``,
     seriesLimit: 0,
@@ -8,10 +10,12 @@ export const config = $state({
     wsServer: {
         ip: `127.0.0.1`,
         port: 8080
-    }
-} satisfies Config as Config);
+    },
 
-export interface Config {
+    game: new Game()
+} satisfies Core as Core);
+
+export interface Core {
     titleText: string
     seriesText: string
     seriesLimit: number
@@ -23,4 +27,8 @@ export interface Config {
         port: number
         ssl?: boolean
     }
+
+    game: Game
 }
+
+export type Unpacked<T> = T extends Array<infer U> ? U : T;
