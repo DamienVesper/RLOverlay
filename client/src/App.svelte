@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-
     import BoostMeter from "./components/BoostMeter.svelte";
     import Scorebug from "./components/Scorebug.svelte";
 
