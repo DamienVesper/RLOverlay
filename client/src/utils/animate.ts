@@ -20,7 +20,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 500,
-        delay: 250 + delay,
+        delay: 500 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -30,7 +30,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 250,
-        delay: 0 + delay,
+        delay: 250 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -40,7 +40,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleY(1)` }
     ], {
         duration: 250,
-        delay: 750 + delay,
+        delay: 1000 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -50,7 +50,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 250,
-        delay: 250 + delay,
+        delay: 500 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -60,7 +60,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 500,
-        delay: 500 + delay,
+        delay: 750 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -70,7 +70,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 250,
-        delay: 250 + delay,
+        delay: 500 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -80,7 +80,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 500,
-        delay: 500 + delay,
+        delay: 750 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -90,7 +90,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 350,
-        delay: 1000 + delay,
+        delay: 1250 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -100,7 +100,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1, transform: `scaleX(1)` }
     ], {
         duration: 350,
-        delay: 1000 + delay,
+        delay: 1250 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     });
@@ -110,7 +110,7 @@ export const animateTopBar = (delay: number) => {
         { opacity: 1 }
     ], {
         duration: 800,
-        delay: 1125 + delay,
+        delay: 1375 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     }];
@@ -122,7 +122,7 @@ export const animateTopBar = (delay: number) => {
 
     const boostAnimOptions: KeyframeAnimationOptions = {
         duration: 150,
-        delay: 1050 + delay,
+        delay: 0 + delay,
         easing: `ease-in-out`,
         fill: `backwards`
     };
@@ -130,15 +130,15 @@ export const animateTopBar = (delay: number) => {
     textElements.forEach(el => el.animate(...animateText));
 
     blueWins.forEach((el, i) => el.animate(winAnim, {
-        duration: 500,
-        delay: 1350 + i * 500 + delay,
+        duration: 200,
+        delay: 1600 + i * 200 + delay,
         easing: `linear`,
         fill: `backwards`
     }));
 
     orangeWins.forEach((el, i) => el.animate(winAnim, {
-        duration: 500,
-        delay: 1350 + i * 500 + delay,
+        duration: 250,
+        delay: 1600 + i * 200 + delay,
         easing: `linear`,
         fill: `backwards`
     }));
