@@ -12,6 +12,7 @@ export interface GameMsg {
     target: string
     time: number
     isOT: boolean
+    over: boolean
     series: [number, number]
 }
 
@@ -26,7 +27,12 @@ export class UpdatePacket extends Packet<GameMsg> {
         core.game.time = raw.time;
         core.game.isOT = raw.isOT;
 
-        core.game.series[0] = raw.series[0];
-        core.game.series[1] = raw.series[1];
+        if (!raw.over) {
+            core.game.series[0] = raw.series[0];
+            core.game.series[1] = raw.series[1];
+        } else {
+            core.game.newSeries[0] = raw.series[0];
+            core.game.newSeries[1] = raw.series[1];
+        }
     };
 }

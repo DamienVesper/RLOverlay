@@ -19,6 +19,7 @@ export interface GameMsg {
     target: string
     time: number
     isOT: boolean
+    over: boolean
     series: [number, number]
 }
 
@@ -43,7 +44,7 @@ export class Game {
     target = ``;
     time = 0;
     isOT = false;
-
+    over = false;
     sentCreationMsg = false;
 
     clearSeries () {
@@ -74,6 +75,7 @@ export class Game {
             target: this.target,
             time: this.time,
             isOT: this.isOT,
+            over: this.over,
             series: this.series
         } satisfies GameMsg as GameMsg;
     }

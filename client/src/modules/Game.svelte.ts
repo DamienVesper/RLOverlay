@@ -34,6 +34,8 @@ export class Game {
     players: GameMsg[`players`] = $state([]);
 
     series: [number, number] = $state([0, 0]);
+    newSeries: [number, number] = $state([0, 0]);
+
     seriesLimit = $state(config.seriesLimit);
 
     goalData = $state({

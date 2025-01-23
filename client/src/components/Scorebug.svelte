@@ -82,7 +82,6 @@
         color: #ffffff;
     }
 
-
     .scorebug > div {
         display: flex;
         justify-content: center;
@@ -196,6 +195,10 @@
 
             width: 200px;
             height: 71px;
+
+            span {
+                width: 110px;
+            }
         }
     }
 

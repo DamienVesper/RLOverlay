@@ -30,5 +30,6 @@ export class UpdatePacket extends Packet<UpdateState, GameMsg> {
         core.game.target = data.game.target;
         core.game.time = Math.floor(data.game.time_seconds);
         core.game.isOT = data.game.isOT;
+        core.game.over = data.game.hasWinner;
     };
 }
