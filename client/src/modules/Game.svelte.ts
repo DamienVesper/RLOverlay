@@ -50,6 +50,7 @@ export class Game {
     target = $state(``);
     time = $state(0);
     isOT = $state(false);
+    watchingReplay = $state(false);
 
     ws = new WebSocket(`${config.wsServer.ssl ? `wss` : `ws`}://${config.wsServer.ip}:${config.wsServer.port}`);
 

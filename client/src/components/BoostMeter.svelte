@@ -13,7 +13,7 @@
     });
 </script>
 
-<div class={`boost-meter-wrapper boost-team-${teamId}`} style={`opacity: ${core.game.target !== `` && core.game.state === GameState.Replay ? 0 : 1};`}>
+<div class={`boost-meter-wrapper boost-team-${teamId}`} style={`opacity: ${core.game.target !== `` && !core.game.watchingReplay ? 1 : 0};`}>
     <div class="boost-meter-empty"></div>
     <div class="boost-meter" style={``}></div>
     <div class="boost-meter-inner d-flex justify-content-center align-items-center">

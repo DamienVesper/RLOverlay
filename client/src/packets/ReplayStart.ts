@@ -7,5 +7,6 @@ import { GameState } from "../modules/Game.svelte";
 export class ReplayStartPacket extends Packet<GameState> {
     deserialize = (raw: GameState) => {
         core.game.state = raw;
+        core.game.watchingReplay = true;
     };
 }
