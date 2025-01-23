@@ -137,7 +137,6 @@
                 background: linear-gradient(to bottom, #6fb5ed 0%, #027dd1 1.6px);
                 height: 8px;
             }
-
             > span {
                 background: linear-gradient(185deg, hsl(240, 16%, 9%) 0%, #1d1e23 20%, #027dd1 120%, #2c5874 150%);
                 border-top-right-radius: 5px;

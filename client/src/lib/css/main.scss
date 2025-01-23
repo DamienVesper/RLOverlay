@@ -53,3 +53,13 @@ html, body {
 * {
     font-family: "Bourgeois";
 }
+
+:root {
+    --bar: 0deg;
+}
+
+@property --bar {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
+}

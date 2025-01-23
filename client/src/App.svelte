@@ -1,8 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import { core } from "./core.svelte";
-
     import BoostMeter from "./components/BoostMeter.svelte";
     import Scorebug from "./components/Scorebug.svelte";
 
@@ -26,14 +24,10 @@
 </div>
 <div class="ui-top-right"></div>
 <div class="ui-bottom-left">
-    {#if core.game.target}
-        <PlayerStats />
-    {/if}
+    <PlayerStats />
 </div>
 <div class="ui-bottom-right">
-    {#if core.game.target}
-        <BoostMeter />
-    {/if}
+    <BoostMeter />
 </div>
 
 <div class="ui-replay">
