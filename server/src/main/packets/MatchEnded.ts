@@ -19,6 +19,5 @@ export class MatchEndedPacket extends Packet<MatchEnded, undefined> {
         core.game.players.clear();
 
         core.game.state = GameState.Initial;
-        core.game.sentCreationMsg = false;
     };
 }
