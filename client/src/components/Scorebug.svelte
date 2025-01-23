@@ -52,7 +52,7 @@
         <div class="team-name-wrapper">
             <div></div>
             <span>
-                <span class="text-animatable">{config.customTeamNames[1] || core.game.teams[1]?.name || `BLUE`}</span>
+                <span class="text-animatable">{config.customTeamNames[1] || core.game.teams[1]?.name || `ORANGE`}</span>
             </span>
         </div>
     </div>

@@ -7,16 +7,31 @@
     import Replay from "./components/Replay.svelte";
     import Scoreboard from "./components/Scoreboard.svelte";
     import PlayerStats from "./components/PlayerStats.svelte";
+    import PlayerBar from "./components/PlayerBar.svelte";
+
+    import { core } from "./core.svelte";
 
     import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
     import "./lib/css/main.scss";
 </script>
 
-<div class="ui-top-left"></div>
+<div class="ui-top-left">
+    <div class="player-boost-bars">
+        {#each core.game.players.filter(player => player.teamId === 0) as player}
+            <PlayerBar player={player} />
+        {/each}
+    </div>
+</div>
 <div class="ui-top-center">
     <Scorebug />
 </div>
-<div class="ui-top-right"></div>
+<div class="ui-top-right">
+    <div class="player-boost-bars">
+        {#each core.game.players.filter(player => player.teamId === 1) as player}
+            <PlayerBar player={player} />
+        {/each}
+    </div>
+</div>
 <div class="ui-bottom-left">
     <PlayerStats />
 </div>
@@ -65,5 +80,9 @@
     .ui-bottom-right {
         bottom: 0;
         right: 0;
+    }
+
+    .player-boost-bars {
+        margin-top: 1rem;
     }
 </style>

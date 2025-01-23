@@ -10,6 +10,9 @@ export const animateTopBar = (delay: number) => {
     const blueWins = document.querySelectorAll<HTMLDivElement>(`.scorebug .series-blue div`);
     const orangeWins = document.querySelectorAll<HTMLDivElement>(`.scorebug .series-orange div`);
 
+    const blueBoostBars = document.querySelectorAll<HTMLDivElement>(`.player-boost-bars > .boost-team-0`);
+    const orangeBoostBars = document.querySelectorAll<HTMLDivElement>(`.player-boost-bars > .boost-team-1`);
+
     const textElements = document.querySelectorAll<HTMLSpanElement>(`.scorebug span.text-animatable`);
 
     titleWrapper?.animate([
@@ -117,6 +120,13 @@ export const animateTopBar = (delay: number) => {
         { width: `100%` }
     ];
 
+    const boostAnimOptions: KeyframeAnimationOptions = {
+        duration: 150,
+        delay: 1050 + delay,
+        easing: `ease-in-out`,
+        fill: `backwards`
+    };
+
     textElements.forEach(el => el.animate(...animateText));
 
     blueWins.forEach((el, i) => el.animate(winAnim, {
@@ -132,4 +142,14 @@ export const animateTopBar = (delay: number) => {
         easing: `linear`,
         fill: `backwards`
     }));
+
+    blueBoostBars.forEach(el => el.animate([
+        { opacity: 0, transform: `translateX(-100%)` },
+        { opacity: 1, transform: `translateX(0)` }
+    ], boostAnimOptions));
+
+    orangeBoostBars.forEach(el => el.animate([
+        { opacity: 0, transform: `translateX(100%)` },
+        { opacity: 1, transform: `translateX(0)` }
+    ], boostAnimOptions));
 };
