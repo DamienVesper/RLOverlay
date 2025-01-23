@@ -1,6 +1,5 @@
 <script lang="ts">
     import { core } from "../core.svelte";
-    import { GameState } from "../modules/Game.svelte";
 
     const targetName = $derived(core.game.target.slice(0, -2));
     const target = $derived(core.game.players.filter(player => player.name === targetName)[0]);

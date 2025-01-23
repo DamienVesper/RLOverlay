@@ -8,14 +8,8 @@
     import Scoreboard from "./components/Scoreboard.svelte";
     import PlayerStats from "./components/PlayerStats.svelte";
 
-    import { animateTopBar } from "./utils/animate";
-
     import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
     import "./lib/css/main.scss";
-
-    onMount(() => {
-        animateTopBar(0);
-    });
 </script>
 
 <div class="ui-top-left"></div>

@@ -17,5 +17,6 @@ export class InitPacket extends Packet<Omit<Config, `wsServer`> & { msg: GameMsg
         core.game.series[1] = raw.msg.series[1];
 
         new UpdatePacket().deserialize(raw.msg);
+        core.game.initialized = true;
     };
 }

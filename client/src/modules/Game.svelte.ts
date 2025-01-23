@@ -1,7 +1,7 @@
 import { config } from "../config.svelte.js";
 
 import type { Packet } from "../packets/Packet.js";
-import { InitPacket } from "../packets/Init.js";
+import { InitPacket } from "../packets/Init.svelte.js";
 import { MatchCreatedPacket } from "../packets/MatchCreated.js";
 import { PreCountdownBeginPacket } from "../packets/PreCountdownBegin.js";
 import { PodiumStartPacket } from "../packets/PodiumStart.js";
@@ -47,6 +47,7 @@ export class Game {
         }
     });
 
+    initialized = $state(false);
     target = $state(``);
     time = $state(0);
     isOT = $state(false);

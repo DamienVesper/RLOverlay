@@ -2,6 +2,8 @@
     import { config } from "../config.svelte";
     import { core } from "../core.svelte";
 
+    import { animateTopBar } from "../utils/animate";
+
     const formatTime = (time: number) => {
         const second = (time % 60).toString().padStart(2, `0`);
         const minute = Math.floor(time / 60) % 60;
@@ -15,43 +17,53 @@
     };
 
     const time = $derived(formatTime(core.game.time));
+
+    let initialized = $state(false);
+    $effect(() => {
+        if (!initialized && core.game.initialized) {
+            initialized = true;
+            animateTopBar(0);
+        }
+    });
 </script>
 
 <div class="scorebug">
     <div class="title-wrapper">
-        {@html config.titleText.replaceAll(`|`, `<span style="font-weight: normal; margin-left: 6.5px; margin-right: 6.5px;">|</span>`)}
+        <span class="text-animatable">
+            {@html config.titleText.replaceAll(`|`, `<span style="font-weight: normal; margin-left: 6.5px; margin-right: 6.5px;">|</span>`)}
+        </span>
     </div>
     <div class="scorebug-main-wrapper">
         <div class="team-name-wrapper">
             <div></div>
             <span>
-                <span>{config.customTeamNames[0] || core.game.teams[0]?.name || `BLUE`}</span>
+                <span class="text-animatable">{config.customTeamNames[0] || core.game.teams[0]?.name || `BLUE`}</span>
             </span>
         </div>
         <div class="score-wrapper">
-            <span>{core.game.teams[0]?.score ?? 0}</span>
+            <span class="text-animatable">{core.game.teams[0]?.score ?? 0}</span>
         </div>
         <div class="timer-wrapper">
-            <span>{core.game.isOT ? `+${time}` : time}</span>
+            <span class="text-animatable">{core.game.isOT ? `+${time}` : time}</span>
         </div>
         <div class="score-wrapper">
-            <span>{core.game.teams[1]?.score ?? 0}</span>
+            <span class="text-animatable">{core.game.teams[1]?.score ?? 0}</span>
         </div>
         <div class="team-name-wrapper">
             <div></div>
             <span>
-                <span>{config.customTeamNames[1] || core.game.teams[1]?.name || `BLUE`}</span>
+                <span class="text-animatable">{config.customTeamNames[1] || core.game.teams[1]?.name || `BLUE`}</span>
             </span>
         </div>
     </div>
     <div class="series-wrapper">
         <div class="series-indicator">
             {#each { length: Math.ceil(config.seriesLimit / 2) } as _, i}
-                <div class={core.game.series[0] > i ? `series-blue` : `series-empty`}></div>
+                <div class={core.game.series[0] > i ? `series-blue` : `series-empty`}><div></div></div>
             {/each}
         </div>
         <div class={`series-text ${core.game.isOT ? `series-text-red` : `series-text-black`}`}>
-            <span class={config.seriesText === `GAME {{game}} | BEST OF {{bo}}` ? `series-text-default` : `series-text-custom` }>
+            <span class={`text-animatable ${config.seriesText === `GAME {{game}} | BEST OF {{bo}}` ? `series-text-default` : `series-text-custom` }`}>
                 {#if config.seriesText === `GAME {{game}} | BEST OF {{bo}}`}
                     <span>Game {core.game.series.reduce((a, b) => a + b) + 1}</span>
                     <span>|</span>
@@ -70,7 +82,7 @@
         </div>
         <div class="series-indicator">
             {#each { length: Math.ceil(config.seriesLimit / 2) } as _, i}
-                <div class={core.game.series[1] > i ? `series-orange` : `series-empty`}></div>
+                <div class={core.game.series[1] > i ? `series-orange` : `series-empty`}><div></div></div>
             {/each}
         </div>
     </div>
@@ -95,11 +107,13 @@
         color: hsl(213, 35%, 69%);
         text-transform: uppercase;
 
-        text-align: center;
-        vertical-align: middle;
-        font-size: 28px;
-        font-weight: 575;
-        letter-spacing: 1.15px;
+        span {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 26px;
+            font-weight: 575;
+            letter-spacing: 1.15px;
+        }
     }
 
     .scorebug-main-wrapper {
@@ -132,6 +146,7 @@
 
         .team-name-wrapper:nth-child(1) {
             background: linear-gradient(to bottom, #6fb5ed 0%, #027dd1 1.6px);
+            transform-origin: center right;
 
             > div {
                 background: linear-gradient(to bottom, #6fb5ed 0%, #027dd1 1.6px);
@@ -145,6 +160,7 @@
 
         .team-name-wrapper:nth-child(5) {
             background: linear-gradient(to bottom, #ffa321 0%, #fc6b21 1.6px);
+            transform-origin: center left;
 
             > div {
                 background: linear-gradient(to bottom, #ffa321 0%, #fc6b21 1.6px);
@@ -173,10 +189,12 @@
 
         .score-wrapper:nth-child(2) {
             background: linear-gradient(to bottom, #6fb5ed 0%, #027dd1 1.6px);
+            transform-origin: center right;
         }
 
         .score-wrapper:nth-child(4) {
             background: linear-gradient(to bottom, #ffa321 0%, #fc6b21 1.6px);
+            transform-origin: center left;
         }
 
         .timer-wrapper {
@@ -203,6 +221,7 @@
 
     .series-wrapper {
         color: #dee2e6;
+        transform-origin: top center;
 
         .series-indicator {
             align-self: flex-start;
@@ -222,15 +241,26 @@
                 margin-left: 5px;
             }
 
-            .series-empty {
+            .series-empty, .series-blue, .series-orange {
                 background: #000000;
+                display: flex;
+
+                > div {
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    margin: 0;
+                }
             }
 
             .series-blue {
-                background: #027dd1;
+                flex-direction: row-reverse;
+                div {
+                    background: #027dd1;
+                }
             }
 
-            .series-orange {
+            .series-orange > div {
                 background: #fc6b21;
             }
         }
@@ -238,10 +268,12 @@
         .series-indicator:nth-child(1) {
             flex-direction: row-reverse;
             border-bottom-left-radius: 5px;
+            transform-origin: center right;
         }
 
         .series-indicator:nth-child(3) {
             border-bottom-right-radius: 5px;
+            transform-origin: center left;
         }
 
         .series-text {
