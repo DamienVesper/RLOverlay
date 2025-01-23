@@ -42,6 +42,8 @@
         margin-bottom: 1.5rem;
 
         text-transform: uppercase;
+
+        transition: 0.1s;
     }
 
     .player-card {
@@ -126,7 +128,7 @@
         }
 
         .player-stats {
-            background: linear-gradient(to top, #ffa321 0%, #fc6b21 1.6px);
+            background: linear-gradient(to top, #fc6b21 0%, #fc6b21 6px, #1d1e23 6px);
         }
     }
 </style>

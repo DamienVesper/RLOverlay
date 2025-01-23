@@ -31,7 +31,7 @@
         margin-bottom: 35px;
         margin-right: 85px;
 
-        transition: 0.3s;
+        transition: 0.1s;
     }
 
     .boost-meter, .boost-meter-empty {
