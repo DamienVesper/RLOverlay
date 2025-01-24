@@ -2,6 +2,8 @@ import { config } from "../config.js";
 import { Player } from "./Player.js";
 import { Team } from "./Team.js";
 
+import { StatFeedEvents } from "../../../../shared/src/net/SOS.js";
+
 export enum GameState {
     Initial,
     MatchCreated,
@@ -45,6 +47,19 @@ export class Game {
             name: ``
         }
     };
+
+    lastStatFeed: {
+        target: Player[`id`]
+        event: StatFeedEvents | undefined
+        time: number
+    } = {
+            target: ``,
+            event: undefined,
+            time: -1
+        };
+
+    statFeedDirty = false;
+    statFeedLocked = false;
 
     target = ``;
     time = 0;

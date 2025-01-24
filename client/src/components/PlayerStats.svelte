@@ -42,8 +42,6 @@
         margin-bottom: 1.5rem;
 
         text-transform: uppercase;
-
-        transition: 0.1s;
     }
 
     .player-card {

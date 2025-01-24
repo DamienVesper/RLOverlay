@@ -130,15 +130,15 @@ export const animateTopBar = (delay: number) => {
     textElements.forEach(el => el.animate(...animateText));
 
     blueWins.forEach((el, i) => el.animate(winAnim, {
-        duration: 200,
-        delay: 1600 + i * 200 + delay,
+        duration: 250,
+        delay: 1600 + i * 250 + delay,
         easing: `linear`,
         fill: `backwards`
     }));
 
     orangeWins.forEach((el, i) => el.animate(winAnim, {
         duration: 250,
-        delay: 1600 + i * 200 + delay,
+        delay: 1600 + i * 250 + delay,
         easing: `linear`,
         fill: `backwards`
     }));

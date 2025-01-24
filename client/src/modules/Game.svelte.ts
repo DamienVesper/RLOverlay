@@ -12,7 +12,7 @@ import { GoalScoredPacket } from "../packets/GoalScored.js";
 import { StatFeedPacket } from "../packets/StatFeed.js";
 import { UpdatePacket, type GameMsg } from "../packets/UpdatePacket.js";
 
-import { Events } from "../../../shared/src/net/SOS.js";
+import { Events, type StatFeed as SOSStatFeed } from "../../../shared/src/net/SOS.js";
 
 export enum GameState {
     Initial,
@@ -27,6 +27,8 @@ export enum GameState {
 export enum ClientEvents {
     Init = `init`
 }
+
+export type StatFeed = SOSStatFeed[`data`] & { time: number };
 
 export class Game {
     state = $state(GameState.Initial);
@@ -52,6 +54,16 @@ export class Game {
             name: ``
         }
     });
+
+    statFeed: StatFeed[] = [];
+
+    postGameStats: {
+        teams: GameMsg[`teams`]
+        players: GameMsg[`players`]
+    } = $state({
+            teams: [],
+            players: []
+        });
 
     initialized = $state(false);
     target = $state(``);

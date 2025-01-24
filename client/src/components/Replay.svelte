@@ -79,11 +79,11 @@
 
 
     .team-0 {
-        background: linear-gradient(to right, #de161680 -10%, #027dd180 25%, #1e90ff80 50%, #027dd180 75%, #de161680 115%);
+        background: linear-gradient(to right, #de1616aa -10%, #027dd1aa 25%, #1e90ffaa 50%, #027dd1aa 75%, #de1616aa 115%);
     }
 
     .team-1 {
-        background: linear-gradient(to right, #de161680 -10%, #fc6b2180 25%, #ffa32180 50%, #fc6b2180 75%, #de161680 115%);
+        background: linear-gradient(to right, #de1616aa -10%, #fc6b21aa 25%, #ffa321aa 50%, #fc6b21aa 75%, #de1616aa 115%);
     }
 
     img {

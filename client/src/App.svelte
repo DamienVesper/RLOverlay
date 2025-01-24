@@ -13,36 +13,39 @@
     import "./lib/css/main.scss";
 </script>
 
-<div class="ui-top-left">
-    <div class="player-boost-bars">
-        {#each core.game.players.filter(player => player.teamId === 0) as player}
-            <PlayerBar player={player} />
-        {/each}
+{#if window.location.pathname === `/`}
+    <div class="ui-top-left">
+        <div class="player-boost-bars">
+            {#each core.game.players.filter(player => player.teamId === 0) as player}
+                <PlayerBar player={player} />
+            {/each}
+        </div>
     </div>
-</div>
-<div class="ui-top-center">
-    <Scorebug />
-</div>
-<div class="ui-top-right">
-    <div class="player-boost-bars">
-        {#each core.game.players.filter(player => player.teamId === 1) as player}
-            <PlayerBar player={player} />
-        {/each}
+    <div class="ui-top-center">
+        <Scorebug />
     </div>
-</div>
-<div class="ui-bottom-left">
-    <PlayerStats />
-</div>
-<div class="ui-bottom-right">
-    <BoostMeter />
-</div>
+    <div class="ui-top-right">
+        <div class="player-boost-bars">
+            {#each core.game.players.filter(player => player.teamId === 1) as player}
+                <PlayerBar player={player} />
+            {/each}
+        </div>
+    </div>
+    <div class="ui-bottom-left">
+        <PlayerStats />
+    </div>
+    <div class="ui-bottom-right">
+        <BoostMeter />
+    </div>
 
-<div class="ui-replay">
-    <Replay />
-</div>
-<div class="ui-scoreboard">
-    <Scoreboard />
-</div>
+    <div class="ui-replay">
+        <Replay />
+    </div>
+    <div class="ui-scoreboard">
+        <Scoreboard />
+    </div>
+{:else if window.location.pathname === `/stats`}
+{/if}
 
 <style>
     .ui-top-left,
