@@ -97,6 +97,8 @@ void app.whenReady().then(() => {
 
     ipcMain.on(`resetSeriesScore`, () => {
         core.game.clearSeries();
+        sendAllInit();
+
         win.webContents.send(`sendSeriesScore`, core.game.series);
     });
 

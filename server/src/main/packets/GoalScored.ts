@@ -11,7 +11,9 @@ export class GoalScoredPacket extends Packet<GoalScored, typeof core.game.goalDa
         if (core.game.teams.has(raw.data.scorer.teamnum)) core.game.teams.get(raw.data.scorer.teamnum)!.score++;
         core.game.goalData = {
             speed: raw.data.goalspeed,
-            scorer: raw.data.scorer
+            scorer: raw.data.scorer,
+            assister: raw.data.assister,
+            time: core.game.time
         };
     };
 }

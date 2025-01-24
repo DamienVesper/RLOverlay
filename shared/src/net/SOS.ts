@@ -165,11 +165,16 @@ export interface GoalScored {
             speed: number
         }
         goalspeed: number
+        goaltime: number
         impact_location: Omit<Location, `Y`>
         scorer: {
             id: string
             name: string
             teamnum: number
+        }
+        assister: {
+            id: string
+            name: string
         }
     }
 }

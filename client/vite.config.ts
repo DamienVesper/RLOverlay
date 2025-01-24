@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
-import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
+
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import svg from "@poppanator/sveltekit-svg";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig(({ mode }) => {
     return {
@@ -47,6 +49,7 @@ export default defineConfig(({ mode }) => {
 
         plugins: [
             svelte(),
+            svg(),
             ViteImageOptimizer({
                 test: /\.(svg)$/i,
                 logStats: false

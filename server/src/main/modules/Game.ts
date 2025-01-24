@@ -34,10 +34,15 @@ export class Game {
 
     goalData = {
         speed: 0,
+        time: 0,
         scorer: {
             id: ``,
             name: ``,
             teamnum: 0
+        },
+        assister: {
+            id: ``,
+            name: ``
         }
     };
 

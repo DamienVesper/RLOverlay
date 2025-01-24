@@ -3,18 +3,7 @@
     import { core } from "../core.svelte";
 
     import { animateTopBar } from "../utils/animate";
-
-    const formatTime = (time: number) => {
-        const second = (time % 60).toString().padStart(2, `0`);
-        const minute = Math.floor(time / 60) % 60;
-        const hour = Math.floor(time / 3600);
-
-        const min = hour > 0 ? minute.toString().padStart(2, `0`) : `${minute}`;
-
-        return time > 3600
-            ? `${hour}:${min}:${second}`
-            : `${min}:${second}`;
-    };
+    import { formatTime } from "../utils/utils";
 
     const time = $derived(formatTime(core.game.time));
 
@@ -212,10 +201,6 @@
 
             width: 200px;
             height: 71px;
-
-            span {
-                width: 110px;
-            }
         }
     }
 

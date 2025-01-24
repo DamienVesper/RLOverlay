@@ -49,7 +49,9 @@
     .ui-top-center,
     .ui-top-right,
     .ui-bottom-left,
-    .ui-bottom-right {
+    .ui-bottom-right,
+    .ui-replay,
+    .ui-scoreboard {
         position: absolute;
     }
 
@@ -82,5 +84,12 @@
 
     .player-boost-bars {
         margin-top: 1rem;
+    }
+
+    .ui-replay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>

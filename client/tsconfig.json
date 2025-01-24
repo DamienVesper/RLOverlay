@@ -27,7 +27,7 @@
         "../shared/",
         "vite.config.ts",
         "global.d.ts"
-    ],
+, "src/img/icons/assist.svg"    ],
     "exclude": [
         "node_modules"
     ]
