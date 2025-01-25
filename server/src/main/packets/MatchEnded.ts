@@ -6,8 +6,8 @@ import { Packet } from "./Packet.js";
 
 import { GameState } from "../modules/Game.js";
 
-export class MatchEndedPacket extends Packet<MatchEnded, undefined> {
-    serialize = (_raw: MatchEnded) => undefined;
+export class MatchEndedPacket extends Packet<MatchEnded, MatchEnded[`data`][`winner_team_num`]> {
+    serialize = (raw: MatchEnded) => raw.data.winner_team_num;
 
     deserialize = (raw: MatchEnded) => {
         core.game.series[raw.data.winner_team_num]++;

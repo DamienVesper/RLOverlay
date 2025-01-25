@@ -19,6 +19,7 @@
 <div class="scorebug">
     <div class="title-wrapper">
         <span class="text-animatable">
+            <!-- need to filter for xss -->
             {@html config.titleText.replaceAll(`|`, `<span style="font-weight: normal; margin-left: 6.5px; margin-right: 6.5px;">|</span>`)}
         </span>
     </div>
@@ -141,6 +142,7 @@
                 background: linear-gradient(to bottom, #6fb5ed 0%, #027dd1 1.6px);
                 height: 8px;
             }
+
             > span {
                 background: linear-gradient(185deg, hsl(240, 16%, 9%) 0%, #1d1e23 20%, #027dd1 120%, #2c5874 150%);
                 border-top-right-radius: 5px;
@@ -169,8 +171,6 @@
 
             font-size: 50px;
             font-weight: 550;
-            // height: 83px;
-            // width: 80px;
             width: 80px;
             height: 71px;
             padding: 0px 1rem;

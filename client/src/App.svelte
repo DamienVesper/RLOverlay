@@ -41,10 +41,10 @@
     <div class="ui-replay">
         <Replay />
     </div>
+{:else if window.location.pathname === `/stats`}
     <div class="ui-scoreboard">
         <Scoreboard />
     </div>
-{:else if window.location.pathname === `/stats`}
 {/if}
 
 <style>
@@ -92,6 +92,11 @@
     .ui-replay {
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .ui-scoreboard {
         width: 100%;
         height: 100%;
     }

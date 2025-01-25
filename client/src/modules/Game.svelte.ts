@@ -55,14 +55,16 @@ export class Game {
         }
     });
 
-    statFeed: StatFeed[] = [];
+    statFeed: StatFeed[] = $state([]);
 
     postGameStats: {
         teams: GameMsg[`teams`]
         players: GameMsg[`players`]
+        series: [number, number]
     } = $state({
             teams: [],
-            players: []
+            players: [],
+            series: [0, 0]
         });
 
     initialized = $state(false);
