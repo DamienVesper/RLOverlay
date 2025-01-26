@@ -103,7 +103,7 @@
         </li>
     </ul>
     <div class="mt-3">
-        {#if currentTab === Tabs.MatchInfo}
+        <div style={`display: ${currentTab === Tabs.MatchInfo ? `block` : `none`}`}>
             <div class="d-grid gap-2">
                 <div class="row g-2">
                     <div class="col-3">
@@ -195,16 +195,18 @@
                 <div class="form-text">Series score automatically updates at the end of each game.</div>
                 <div class="form-text">Leave team names blank to default to in-game names.</div>
             </div>
-        {:else if currentTab === Tabs.DisplayOptions}
+        </div>
+        <div style={`display: ${currentTab === Tabs.DisplayOptions ? `block` : `none`}`}>
             <div>
                 <div class="form-check">
-                    <input type="checkbox" id="obs-transitions-config" class="form-check-input" bind:value={config.enableOBSTransitions} onchange={updateConfig}>
+                    <input type="checkbox" id="obs-transitions-config" class="form-check-input" bind:checked={config.enableOBSTransitions} onchange={updateConfig}>
                     <label for="obs-transitions-config" class="form-check-label">Enable automatic scene transitions in OBS.</label>
                 </div>
             </div>
-        {:else}
+        </div>
+        <div style={`display: ${currentTab === Tabs.Help ? `block` : `none`}`}>
             <div class="form-text">Contact me on <a href="https://discord.com/users/386940319666667521" target="_blank">Discord</a> if you have any issues.</div>
-        {/if}
+        </div>
     </div>
 </main>
 
