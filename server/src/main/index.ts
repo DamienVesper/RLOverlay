@@ -75,6 +75,7 @@ void app.whenReady().then(() => {
         config.titleText = newConfig.titleText;
         config.seriesText = newConfig.seriesText;
         config.seriesLimit = newConfig.seriesLimit;
+        config.enableOBSTransitions = newConfig.enableOBSTransitions;
 
         updateStore();
         sendAllInit();

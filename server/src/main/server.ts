@@ -32,6 +32,7 @@ const sendInit = (socket: WebSocket) => {
             titleText: config.titleText,
             seriesText: config.seriesText,
             seriesLimit: config.seriesLimit,
+            enableOBSTransitions: config.enableOBSTransitions,
             customTeamNames: config.customTeamNames,
             msg: core.game.serialize()
         }

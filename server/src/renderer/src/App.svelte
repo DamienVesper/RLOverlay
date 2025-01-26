@@ -5,12 +5,17 @@
     import { onMount } from "svelte";
     import "bootstrap";
 
+    import { Tabs } from "./enums";
+
     import "../../../resources/main.scss";
+
+    let currentTab = $state<Tabs>(Tabs.MatchInfo);
 
     const config = $state({
         titleText: ``,
         seriesText: ``,
-        seriesLimit: 0
+        seriesLimit: 0,
+        enableOBSTransitions: true
     });
 
     const teams = $state([
@@ -29,6 +34,7 @@
             config.titleText = newConfig.titleText;
             config.seriesText = newConfig.seriesText;
             config.seriesLimit = newConfig.seriesLimit;
+            config.enableOBSTransitions = newConfig.enableOBSTransitions;
         });
 
         window.electron.ipcRenderer.on(`sendSeriesScore`, (_e, series) => {
@@ -82,101 +88,123 @@
     <p class="text-center form-text">Broadcasting Assistant for Rocket League</p>
 </header>
 <main class="container">
-    <div class="mt-5">
-        <h3 class="text-center">Match Info</h3>
-        <div class="d-grid gap-2">
-            <hr>
-            <div class="row g-2">
-                <div class="col-3">
-                    <div class="input-group">
-                        <span class="input-group-text">Best of</span>
-                        <select name="" id="" class="form-select" bind:value={config.seriesLimit} onchange={updateConfig}>
-                            <option value={3}>3</option>
-                            <option value={5}>5</option>
-                            <option value={7}>7</option>
-                            <option value={9}>9</option>
-                            <option value={0}>Unlimited</option>
-                        </select>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <!-- svelte-ignore a11y_invalid_attribute -->
+            <a href="#" class={`nav-link ${currentTab === Tabs.MatchInfo ? `active` : ``}`} onclick={(() => { currentTab = Tabs.MatchInfo; })}>Match Info</a>
+        </li>
+        <li class="nav-item">
+            <!-- svelte-ignore a11y_invalid_attribute -->
+            <a href="#" class={`nav-link ${currentTab === Tabs.DisplayOptions ? `active` : ``}`} onclick={(() => { currentTab = Tabs.DisplayOptions; })}>Display Options</a>
+        </li>
+        <li class="nav-item">
+            <!-- svelte-ignore a11y_invalid_attribute -->
+            <a href="#" class={`nav-link ${currentTab === Tabs.Help ? `active` : ``}`} onclick={(() => { currentTab = Tabs.Help; })}>Help</a>
+        </li>
+    </ul>
+    <div class="mt-3">
+        {#if currentTab === Tabs.MatchInfo}
+            <div class="d-grid gap-2">
+                <div class="row g-2">
+                    <div class="col-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Best of</span>
+                            <select name="" id="" class="form-select" bind:value={config.seriesLimit} onchange={updateConfig}>
+                                <option value={3}>3</option>
+                                <option value={5}>5</option>
+                                <option value={7}>7</option>
+                                <option value={9}>9</option>
+                                <option value={0}>Unlimited</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="series-text" class="form-control" placeholder="Title Text" bind:value={config.titleText} onchange={updateConfig}>
+                    </div>
+                    <div class="col">
+                        <input type="text" id="top-info-text" class="form-control" placeholder="Series Text" bind:value={config.seriesText} onchange={updateConfig}>
                     </div>
                 </div>
-                <div class="col">
-                    <input type="text" id="series-text" class="form-control" placeholder="Title Text" bind:value={config.titleText} onchange={updateConfig}>
-                </div>
-                <div class="col">
-                    <input type="text" id="top-info-text" class="form-control" placeholder="Series Text" bind:value={config.seriesText} onchange={updateConfig}>
-                </div>
-            </div>
-            <div class="row g-2">
-                <div class="col">
-                    <button class="btn btn-primary w-100" onclick={resetSeriesScore}>
-                        <FontAwesomeIcon icon={faRankingStar} />
-                        Reset Series Score
-                    </button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-success w-100" onclick={switchTeamData}>
-                        <FontAwesomeIcon icon={faArrowRightArrowLeft} />
-                        Switch Teams
-                    </button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-danger w-100" onclick={resetTeamData}>
-                        <FontAwesomeIcon icon={faTrash} />
-                        Reset Team Data
-                    </button>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="d-grid gap-2 mt-2">
-            <div class="row">
-                <div class="col text-center">
-                    <h3>Left Team</h3>
-                    <hr>
-                </div>
-                <div class="col-2"></div>
-                <div class="col text-center">
-                    <h3>Right Team</h3>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="d-flex">
-                        <label for="team-series-score-1">Series Score</label>
-                        <input type="number" name="team-series-score-1" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[0].score} onchange={updateSeriesScore}>
+                <div class="row g-2">
+                    <div class="col">
+                        <button class="btn btn-primary w-100" onclick={resetSeriesScore}>
+                            <FontAwesomeIcon icon={faRankingStar} />
+                            Reset Series Score
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success w-100" onclick={switchTeamData}>
+                            <FontAwesomeIcon icon={faArrowRightArrowLeft} />
+                            Switch Teams
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-danger w-100" onclick={resetTeamData}>
+                            <FontAwesomeIcon icon={faTrash} />
+                            Reset Team Data
+                        </button>
                     </div>
                 </div>
-                <div class="col-2"></div>
-                <div class="col">
-                    <div class="d-flex">
-                        <label for="team-series-score-2">Series Score</label>
-                        <input type="number" name="team-series-score-2" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[1].score} onchange={updateSeriesScore}>
+                <hr>
+            </div>
+            <div class="d-grid gap-2 mt-2">
+                <div class="row">
+                    <div class="col text-center">
+                        <h3>Left Team</h3>
+                        <hr>
                     </div>
+                    <div class="col-2"></div>
+                    <div class="col text-center">
+                        <h3>Right Team</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex">
+                            <label for="team-series-score-1">Series Score</label>
+                            <input type="number" name="team-series-score-1" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[0].score} onchange={updateSeriesScore}>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <div class="d-flex">
+                            <label for="team-series-score-2">Series Score</label>
+                            <input type="number" name="team-series-score-2" class="form-control ms-3" placeholder="0" min={0} max={99} bind:value={teams[1].score} onchange={updateSeriesScore}>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex">
+                            <label for="team-name-1">Name</label>
+                            <input type="text" name="team-name-1" class="form-control ms-3" placeholder="BLUE" bind:value={teams[0].name} onchange={updateTeamData}>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <div class="d-flex">
+                            <label for="team-name-2">Name</label>
+                            <input type="text" name="team-name-2" class="form-control ms-3" placeholder="ORANGE" bind:value={teams[1].name} onchange={updateTeamData}>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="text-center">
+                <div class="form-text">Series score automatically updates at the end of each game.</div>
+                <div class="form-text">Leave team names blank to default to in-game names.</div>
+            </div>
+        {:else if currentTab === Tabs.DisplayOptions}
+            <div>
+                <div class="form-check">
+                    <input type="checkbox" id="obs-transitions-config" class="form-check-input" bind:value={config.enableOBSTransitions} onchange={updateConfig}>
+                    <label for="obs-transitions-config" class="form-check-label">Enable automatic scene transitions in OBS.</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="d-flex">
-                        <label for="team-name-1">Name</label>
-                        <input type="text" name="team-name-1" class="form-control ms-3" placeholder="BLUE" bind:value={teams[0].name} onchange={updateTeamData}>
-                    </div>
-                </div>
-                <div class="col-2"></div>
-                <div class="col">
-                    <div class="d-flex">
-                        <label for="team-name-2">Name</label>
-                        <input type="text" name="team-name-2" class="form-control ms-3" placeholder="ORANGE" bind:value={teams[1].name} onchange={updateTeamData}>
-                    </div>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="text-center">
-            <div class="form-text">Series score automatically updates at the end of each game.</div>
-            <div class="form-text">Leave team names blank to default to in-game names.</div>
+        {:else}
             <div class="form-text">Contact me on <a href="https://discord.com/users/386940319666667521" target="_blank">Discord</a> if you have any issues.</div>
-        </div>
+        {/if}
     </div>
 </main>
 

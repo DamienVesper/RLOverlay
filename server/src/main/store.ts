@@ -12,6 +12,7 @@ export const schema = {
     titleText: { type: `string`, default: `RLCS` },
     seriesText: { type: `string`, default: `GAME {{game}} | BEST OF {{bo}}` },
     seriesLimit: { type: `number`, default: 0, minimum: 0, maximum: 9 },
+    enableOBSTransitions: { type: `boolean`, default: true },
     customTeamName0: { type: `string`, default: `` },
     customTeamName1: { type: `string`, default: `` }
 };

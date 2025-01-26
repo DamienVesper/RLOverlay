@@ -4,6 +4,7 @@ export const config = {
     titleText: store.get(`titleText`),
     seriesText: store.get(`seriesText`),
     seriesLimit: store.get(`seriesLimit`),
+    enableOBSTransitions: store.get(`enableOBSTransitions`),
     customTeamNames: [
         store.get(`customTeamName0`),
         store.get(`customTeamName1`)
@@ -39,6 +40,7 @@ export interface Config {
     titleText: string
     seriesText: string
     seriesLimit: number
+    enableOBSTransitions: boolean
     customTeamNames: string[]
 
     server: ServerConfig

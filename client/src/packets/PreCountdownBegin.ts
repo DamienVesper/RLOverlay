@@ -1,3 +1,4 @@
+import { config } from "../config.svelte";
 import { core } from "../core.svelte";
 
 import { Packet } from "./Packet.js";
@@ -10,13 +11,15 @@ export class PreCountdownBeginPacket extends Packet<boolean> {
             core.game.teams.length = 0;
             core.game.players.length = 0;
 
-            try {
-                setTimeout(() => {
-                    animateTopBar(750);
-                }, 750);
-                window.obsstudio.setCurrentScene?.(`RL (Game)`);
-            } catch (err) {
-                console.warn(err);
+            if (config.enableOBSTransitions) {
+                try {
+                    setTimeout(() => {
+                        animateTopBar(750);
+                    }, 750);
+                    window.obsstudio.setCurrentScene?.(`RL (Game)`);
+                } catch (err) {
+                    console.warn(err);
+                }
             }
         }
     };

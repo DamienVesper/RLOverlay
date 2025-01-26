@@ -4,6 +4,7 @@ export const config = $state({
     titleText: ``,
     seriesText: ``,
     seriesLimit: 0,
+    enableOBSTransitions: true,
 
     customTeamNames: [``, ``],
 
@@ -17,6 +18,7 @@ export interface Config {
     titleText: string
     seriesText: string
     seriesLimit: number
+    enableOBSTransitions: boolean
 
     customTeamNames: string[]
 
