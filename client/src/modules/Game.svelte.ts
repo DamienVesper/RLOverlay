@@ -10,7 +10,7 @@ import { PodiumStartPacket } from "../packets/PodiumStart.js";
 import { ReplayStartPacket } from "../packets/ReplayStart.js";
 import { ReplayEndPacket } from "../packets/ReplayEnd.js";
 import { GoalScoredPacket } from "../packets/GoalScored.js";
-import { StatFeedPacket } from "../packets/StatFeed.js";
+import { StatFeedPacket } from "../packets/StatFeed.svelte.js";
 import { UpdatePacket, type GameMsg } from "../packets/UpdatePacket.js";
 
 import { Events, type StatFeed as SOSStatFeed } from "../../../shared/src/net/SOS.js";

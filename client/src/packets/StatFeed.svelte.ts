@@ -11,12 +11,14 @@ export class StatFeedPacket extends Packet<StatFeed[`data`]> {
             if (playerStatFeed.length === 2) core.game.statFeed.splice(core.game.statFeed.indexOf(playerStatFeed[0]), 1);
 
             const time = Date.now();
+
             const statFeed = Object.assign(raw, { time });
+            const stateFeed = $state(statFeed);
 
             core.game.statFeed.push(statFeed);
 
             setTimeout(() => {
-                core.game.statFeed.splice(core.game.statFeed.indexOf(statFeed), 1);
+                core.game.statFeed.splice(core.game.statFeed.indexOf(stateFeed), 1);
             }, 1e3);
         }
     };
