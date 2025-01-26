@@ -133,9 +133,15 @@
                 <div>
                     <span>{key}</span>
                     <div>
-                        <div class="slider-blue" style={`width: calc(${100 * blueStats[key as keyof typeof blueStats] / stats}% - 2.5px)`}></div>
-                        <div class="slider-tick"></div>
-                        <div class="slider-orange" style={`width: calc(${100 * orangeStats[key as keyof typeof orangeStats] / stats}% - 2.5px)`}></div>
+                        {#if stats === 0}
+                            <div class="slider-blue" style={`width: calc(50% - 2.5px)`}></div>
+                            <div class="slider-tick"></div>
+                            <div class="slider-orange" style={`width: calc(50% - 2.5px)`}></div>
+                        {:else}
+                            <div class="slider-blue" style={`width: calc(${100 * blueStats[key as keyof typeof blueStats] / stats}% - 2.5px)`}></div>
+                            <div class="slider-tick"></div>
+                            <div class="slider-orange" style={`width: calc(${100 * orangeStats[key as keyof typeof orangeStats] / stats}% - 2.5px)`}></div>
+                        {/if}
                     </div>
                 </div>
             {/each}

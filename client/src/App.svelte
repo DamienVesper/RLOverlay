@@ -41,7 +41,7 @@
     <div class="ui-replay">
         <Replay />
     </div>
-{:else if window.location.pathname === `/stats`}
+{:else if window.location.pathname === `/stats` && core.game.postGameStats.players.length > 0}
     <div class="ui-scoreboard">
         <Scoreboard />
     </div>

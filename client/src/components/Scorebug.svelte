@@ -60,7 +60,7 @@
                     {#if core.game.isOT}
                         <span>Overtime</span>
                     {:else}
-                        <span>Best <span class="scorebug-small"><span>of</span></span> {config.seriesLimit === 0 ? `Unlimited` : config.seriesLimit.toString()}</span>
+                        <span>Best <span class="scorebug-small"><span>of</span></span> {config.seriesLimit === 0 ? `Unlimited` : config.seriesLimit}</span>
                     {/if}
                 {:else}
                     {config.seriesText

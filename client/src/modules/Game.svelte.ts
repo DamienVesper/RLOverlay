@@ -3,6 +3,7 @@ import { config } from "../config.svelte.js";
 import type { Packet } from "../packets/Packet.js";
 import { InitPacket } from "../packets/Init.svelte.js";
 import { MatchCreatedPacket } from "../packets/MatchCreated.js";
+import { MatchEndedPacket } from "../packets/MatchEnded.svelte.js";
 import { MatchDestroyedPacket } from "../packets/MatchDestroyed.js";
 import { PreCountdownBeginPacket } from "../packets/PreCountdownBegin.js";
 import { PodiumStartPacket } from "../packets/PodiumStart.js";
@@ -96,6 +97,9 @@ export class Game {
                     break;
                 case Events.MatchCreated:
                     packet = new MatchCreatedPacket();
+                    break;
+                case Events.MatchEnded:
+                    packet = new MatchEndedPacket();
                     break;
                 case Events.MatchDestroyed:
                     packet = new MatchDestroyedPacket();
