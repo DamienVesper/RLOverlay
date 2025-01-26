@@ -67,6 +67,12 @@ export class Game {
             series: [0, 0]
         });
 
+    mvp: SOSStatFeed[`data`][`main_target`] = $state({
+        id: `5`,
+        name: `zen`,
+        team_num: 1
+    });
+
     initialized = $state(false);
     target = $state(``);
     time = $state(0);

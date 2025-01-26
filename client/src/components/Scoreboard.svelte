@@ -2,6 +2,8 @@
     import { config } from "../config.svelte";
     import { core } from "../core.svelte";
 
+    import mvpIcon from "../img/icons/mvp.svg?dataurl";
+
     const bluePlayers = $derived(core.game.postGameStats.players.filter(player => player.teamId === 0));
     const orangePlayers = $derived(core.game.postGameStats.players.filter(player => player.teamId === 1));
 
@@ -9,6 +11,37 @@
     const orangeTeam = $derived(core.game.postGameStats.teams[1]);
 
     const series = $derived(core.game.postGameStats.series);
+
+    // This needs to be refactored into something more performant and cleaner.
+    const blueStats = $derived({
+        score: bluePlayers.map(x => x.stats.score).reduce((a, b) => a + b),
+        goals: bluePlayers.map(x => x.stats.goals).reduce((a, b) => a + b),
+        assists: bluePlayers.map(x => x.stats.assists).reduce((a, b) => a + b),
+        shots: bluePlayers.map(x => x.stats.shots).reduce((a, b) => a + b),
+        saves: bluePlayers.map(x => x.stats.saves).reduce((a, b) => a + b),
+        demos: bluePlayers.map(x => x.stats.demos).reduce((a, b) => a + b),
+        touches: bluePlayers.map(x => x.stats.touches).reduce((a, b) => a + b),
+    });
+
+    const orangeStats = $derived({
+        score: orangePlayers.map(x => x.stats.score).reduce((a, b) => a + b),
+        goals: orangePlayers.map(x => x.stats.goals).reduce((a, b) => a + b),
+        assists: orangePlayers.map(x => x.stats.assists).reduce((a, b) => a + b),
+        shots: orangePlayers.map(x => x.stats.shots).reduce((a, b) => a + b),
+        saves: orangePlayers.map(x => x.stats.saves).reduce((a, b) => a + b),
+        demos: orangePlayers.map(x => x.stats.demos).reduce((a, b) => a + b),
+        touches: orangePlayers.map(x => x.stats.touches).reduce((a, b) => a + b),
+    });
+
+    const totalStats = $derived({
+        score: blueStats.score + orangeStats.score,
+        goals: blueStats.goals + orangeStats.goals,
+        assists: blueStats.assists + orangeStats.assists,
+        shots: blueStats.shots + orangeStats.shots,
+        saves: blueStats.saves + orangeStats.saves,
+        demos: blueStats.demos + orangeStats.demos,
+        touches: blueStats.touches + orangeStats.touches,
+    });
 </script>
 
 <div class="scoreboard">
@@ -56,31 +89,78 @@
                 {/if}
             </div>
         </div>
+        <div class="player-names">
+            <div class="blue-team">
+                <div class="padding"></div>
+                <div>
+                    {#each bluePlayers as player}
+                        <div>
+                            <img src={mvpIcon} alt="MVP icon" style={`opacity: ${player.id === core.game.mvp.id ? 1 : 0}`}>
+                            <span>{player.name}</span>
+                        </div>
+                    {/each}
+                </div>
+            </div>
+            <div class="orange-team">
+                <div>
+                    {#each orangePlayers as player}
+                        <div>
+                            <img src={mvpIcon} alt="MVP icon" style={`opacity: ${player.id === core.game.mvp.id ? 1 : 0}`}>
+                            <span>{player.name}</span>
+                        </div>
+                    {/each}
+                </div>
+                <div class="padding"></div>
+            </div>
+        </div>
     </div>
     <div class="score-table">
-        {#each bluePlayers as player}
-            <div>{player.name}</div>
-            <div>{player.stats.score}</div>
-            <div>{player.stats.goals}</div>
-            <div>{player.stats.assists}</div>
-            <div>{player.stats.shots}</div>
-            <div>{player.stats.saves}</div>
-            <div>{player.stats.demos}</div>
-        {/each}
-        <div class="simple-bars"></div>
-        {#each orangePlayers as player}
-            <div>{player.name}</div>
-            <div>{player.stats.score}</div>
-            <div>{player.stats.goals}</div>
-            <div>{player.stats.assists}</div>
-            <div>{player.stats.shots}</div>
-            <div>{player.stats.saves}</div>
-            <div>{player.stats.demos}</div>
-        {/each}
+        <div class="blue-team">
+            {#each bluePlayers as player}
+                <div>
+                    <div>{player.stats.score}</div>
+                    <div>{player.stats.goals}</div>
+                    <div>{player.stats.assists}</div>
+                    <div>{player.stats.shots}</div>
+                    <div>{player.stats.saves}</div>
+                    <div>{player.stats.demos}</div>
+                    <div>{player.stats.touches}</div>
+                </div>
+            {/each}
+        </div>
+        <div class="sliders">
+            {#each Object.entries(totalStats) as [key, stats]}
+                <div>
+                    <span>{key}</span>
+                    <div>
+                        <div class="slider-blue" style={`width: calc(${100 * blueStats[key as keyof typeof blueStats] / stats}% - 2.5px)`}></div>
+                        <div class="slider-tick"></div>
+                        <div class="slider-orange" style={`width: calc(${100 * orangeStats[key as keyof typeof orangeStats] / stats}% - 2.5px)`}></div>
+                    </div>
+                </div>
+            {/each}
+        </div>
+        <div class="orange-team">
+            {#each orangePlayers as player}
+                <div>
+                    <div>{player.stats.score}</div>
+                    <div>{player.stats.goals}</div>
+                    <div>{player.stats.assists}</div>
+                    <div>{player.stats.shots}</div>
+                    <div>{player.stats.saves}</div>
+                    <div>{player.stats.demos}</div>
+                    <div>{player.stats.touches}</div>
+                </div>
+            {/each}
+        </div>
     </div>
 </div>
 
 <style lang="scss">
+    .scorebug span {
+        text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
+    }
+
     .scoreboard {
         width: 100%;
         height: 100%;
@@ -100,12 +180,12 @@
         }
 
         .bg-left {
-            background: radial-gradient(circle at 50% 50%, hsl(240, 16%, 9%) 0% 15%, #027dd1 200%);
+            background: radial-gradient(circle at 50% 50%, hsl(240, 16%, 9%) 0% 15%, #027dd1 150%);
             mask-image: linear-gradient(to left, #00000000 0%, #00000000 50%, #000000ff 50%, #000000ff 100%);
         }
 
         .bg-right {
-            background: radial-gradient(circle at 50% 50%, hsl(240, 16%, 9%) 0% 15%, #fc6b21 200%);
+            background: radial-gradient(circle at 50% 50%, hsl(240, 16%, 9%) 0% 15%, #fc6b21 150%);
             mask-image: linear-gradient(to right, #00000000 0%, #00000000 50%, #000000ff 50%, #000000ff 100%);
         }
 
@@ -252,8 +332,134 @@
         }
     }
 
+    .player-names {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+
+        > div {
+            display: flex;
+            width: 780px;
+
+            > div {
+                text-transform: uppercase;
+                font-size: 28px;
+                font-weight: 600;
+
+                margin-bottom: 10px;
+            }
+
+            > div:not(.padding) {
+                display: flex;
+                flex-grow: 1;
+
+                > div {
+                    display: flex;
+                    flex-direction: column;
+                    flex-basis: 100%;
+                    text-align: center;
+
+                    img {
+                        height: 40px;
+                        filter: invert(84%) sepia(42%) saturate(3013%) hue-rotate(348deg) brightness(102%) contrast(107%);
+                    }
+                }
+            }
+        }
+
+        .blue-team {
+            border-bottom: 5px solid #027dd1;
+
+            .padding {
+                margin-left: 50px;
+            }
+        }
+
+        .orange-team {
+            border-bottom: 5px solid #fc6b21;
+
+            .padding {
+                margin-right: 50px;
+            }
+        }
+    }
+
     .score-table {
+        display: flex;
+
         background: #1d1d23;
-        height: 100%;        
+        padding: 0px 50px;
+
+        height: calc(100% - 305px);
+        width: 100%;
+
+        > div:not(.sliders) {
+            display: flex;
+
+            width: 750px;
+            height: 100%;
+
+            > div {
+                flex-basis: 100%;
+                text-align: center;
+
+                font-weight: 600;
+                font-size: 40px;
+
+                > div {
+                    padding: 8px 0px;
+                    border-bottom: 5px solid #00000080;
+                }
+            }
+        }
+
+        .sliders {
+            display: flex;
+            flex-direction: column;
+
+            width: 370px;
+            height: 100%;
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+
+                font-size: 36px;
+                font-weight: 500;
+                letter-spacing: 1.15px;
+                text-transform: uppercase;
+                text-align: center;
+
+                color: #aaaaaa;
+                width: 100%;
+                height: 81px;
+
+                > div {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    position: relative;
+
+                    bottom: -5px;
+
+                    .slider-blue {
+                        background: #027dd1;
+                        height: 5px;
+                    }
+
+                    .slider-tick {
+                        background: #ffffff;
+                        width: 5px;
+                        height: 15px;
+                    }
+
+                    .slider-orange {
+                        background: #fc6b21;
+                        height: 5px;
+                    }
+                }
+            }
+        }
     }
 </style>

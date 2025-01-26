@@ -79,6 +79,10 @@
 </div>
 
 <style lang="scss">
+    .scorebug-main-wrapper span {
+        text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
+    }
+
     .scorebug {
         text-transform: uppercase;
         color: #ffffff;
