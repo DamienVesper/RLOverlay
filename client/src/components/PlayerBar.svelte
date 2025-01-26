@@ -121,6 +121,10 @@
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
 
+        > div:first-child {
+            margin-right: auto;
+        }
+
         span:first-child {
             flex-grow: 1;
         }
@@ -145,6 +149,10 @@
 
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
+
+        > div:first-child {
+            margin-left: auto;
+        }
 
         > div:last-child {
             order: -1;

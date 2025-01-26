@@ -83,9 +83,9 @@
                 {#if series[0] === series[1]}
                     <span>Tied {series[0]}-{series[1]}</span>
                 {:else if series[0] > series[1]}
-                    <span>{blueTeam.name} leads {series[0]}-{series[1]}</span>
+                    <span>{config.customTeamNames[0] || blueTeam.name} leads {series[0]}-{series[1]}</span>
                 {:else}
-                    <span>{orangeTeam.name} leads {series[1]}-{series[0]}</span>
+                    <span>{config.customTeamNames[1] || orangeTeam.name} leads {series[1]}-{series[0]}</span>
                 {/if}
             </div>
         </div>
