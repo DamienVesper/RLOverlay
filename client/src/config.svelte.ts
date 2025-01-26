@@ -1,3 +1,5 @@
+const urlParams = new URLSearchParams(window.location.search);
+
 export const config = $state({
     titleText: ``,
     seriesText: ``,
@@ -6,8 +8,8 @@ export const config = $state({
     customTeamNames: [``, ``],
 
     wsServer: {
-        ip: `127.0.0.1`,
-        port: 49522
+        ip: urlParams.get(`ip`) || `127.0.0.1`,
+        port: Number(urlParams.get(`port`)) || 49522
     }
 } satisfies Config as Config);
 
