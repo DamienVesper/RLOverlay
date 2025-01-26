@@ -1,6 +1,6 @@
 {
   "name": "@damienvesper/rl-overlay",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Rocket League overlay.",
   "private": true,
   "type": "module",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "@electron-toolkit/utils": "^3.0.0",
     "@stylistic/eslint-plugin": "^2.13.0",
-    "eslint": "^9.18.0",
+    "eslint": "^9.19.0",
     "eslint-plugin-svelte": "^2.46.1",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.21.0"
