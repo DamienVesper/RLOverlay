@@ -10,7 +10,6 @@ export class MatchEndedPacket extends Packet<MatchEnded[`data`][`winner_team_num
         newSeries[raw]++;
 
         // Set post-game stats separate from regular stats.
-        console.log(core.game.players);
         core.game.postGameStats = {
             teams: $state.snapshot(core.game.teams),
             players: $state.snapshot(core.game.players),

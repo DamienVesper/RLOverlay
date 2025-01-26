@@ -1,6 +1,6 @@
 <script lang="ts">
     import goalIcon from "../img/icons/goal.svg?dataurl";
-    import shotIcon from "../img/icons/shot-on-goal.svg?dataurl";
+    import shotIcon from "../img/icons/shot.svg?dataurl";
     import assistIcon from "../img/icons/assist.svg?dataurl";
 
     import { core } from "../core.svelte";
