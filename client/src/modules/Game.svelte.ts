@@ -80,9 +80,15 @@ export class Game {
     isOT = $state(false);
     watchingReplay = $state(false);
 
-    ws = new WebSocket(`${config.wsServer.ssl ? `wss` : `ws`}://${config.wsServer.ip}:${config.wsServer.port}`);
+    ws!: WebSocket;
 
     constructor () {
+        this.setupWS();
+    }
+
+    setupWS = () => {
+        this.ws = new WebSocket(`${config.wsServer.ssl ? `wss` : `ws`}://${config.wsServer.ip}:${config.wsServer.port}`);
+
         this.ws.onopen = function (_open) {
             console.log(`Connected to vBARL.`);
         };
@@ -129,7 +135,11 @@ export class Game {
 
             packet?.deserialize(data.data);
         };
-    }
+
+        this.ws.onclose = _e => {
+            this.setupWS();
+        };
+    };
 
     clearSeries () {
         this.series = [0, 0];
