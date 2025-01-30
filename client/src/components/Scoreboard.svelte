@@ -225,6 +225,7 @@
         .team-name-wrapper {
             flex-direction: column;
             width: 780px;
+            text-transform: uppercase;
 
             > * {
                 width: 100%;
