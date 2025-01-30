@@ -11,13 +11,14 @@ const playerBarEvents = [
     StatFeedEvents.Assist,
     StatFeedEvents.Shot,
     StatFeedEvents.Save,
-    StatFeedEvents.Demo
+    StatFeedEvents.EpicSave,
+    StatFeedEvents.Demolition
 ];
 
 export class StatFeedPacket extends Packet<StatFeed[`data`]> {
     deserialize = (raw: StatFeed[`data`]) => {
-        if (raw.event_name === StatFeedEvents.MVP) core.game.mvp = raw.main_target;
-        else if (playerBarEvents.includes(raw.event_name)) {
+        if (raw.type === StatFeedEvents.MVP) core.game.mvp = raw.main_target;
+        else if (playerBarEvents.includes(raw.type)) {
             const playerStatFeed = core.game.statFeed.filter(x => x.main_target.id === raw.main_target.id);
             if (playerStatFeed.length === 2) core.game.statFeed.splice(core.game.statFeed.indexOf(playerStatFeed[0]), 1);
 

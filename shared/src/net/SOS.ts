@@ -60,13 +60,36 @@ export enum Events {
 }
 
 export enum StatFeedEvents {
-    Goal = `Goal`,
-    Assist = `Assist`,
-    Save = `Save`,
-    Shot = `Shot`,
-    Demo = `Demo`,
     Win = `Win`,
-    MVP = `MVP`
+    CompletedMatch = `Completed Match`,
+    MVP = `MVP`,
+    Goal = `Goal`,
+    AerialGoal = `Aerial Goal`,
+    BackwardsGoal = `Backwards Goal`,
+    LongGoal = `Long Goal`,
+    OvertimeGoal = `Overtime Goal`,
+    HatTrick = `Hat Trick`,
+    TurtleGoal = `Turtle Goal`,
+    Assist = `Assist`,
+    Playmaker = `Playmaker`,
+    Save = `Save`,
+    EpicSave = `EpicSave`,
+    Savior = `Savior`,
+    Shot = `Shot on Goal`,
+    Center = `Center Ball`,
+    Clear = `Clear Ball`,
+    AerialHit = `Aerial Hit`,
+    BicycleHit = `Bicycle Hit`,
+    Juggle = `Juggle`,
+    Demolition = `Demolition`,
+    Extermination = `Extermination`,
+    FirstTouch = `First Touch`,
+    PoolShot = `Pool Shot`,
+    LowFive = `Low Five`,
+    HighFive = `High Five`,
+    Damage = `Damage`,
+    UltraDamage = `Ultra Damage`,
+    SwishGoal = `Swish Goal`
 }
 
 export interface Version {
@@ -142,7 +165,7 @@ export interface BallHit {
 export interface StatFeed {
     event: Events.StatFeed
     data: {
-        event_name: StatFeedEvents
+        event_name: string
         main_target: {
             id: string
             name: string
@@ -153,7 +176,7 @@ export interface StatFeed {
             name: string
             team_num: number
         }
-        type: string
+        type: StatFeedEvents
     }
 }
 

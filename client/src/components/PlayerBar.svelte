@@ -24,7 +24,7 @@
                 ? shotIcon
                 : event === StatFeedEvents.Assist
                     ? assistIcon
-                    : event === StatFeedEvents.Save
+                    : event === StatFeedEvents.Save || event === StatFeedEvents.EpicSave
                         ? saveIcon
                         : demoIcon;
     };
@@ -42,10 +42,10 @@
     </div>
     <div class="player-statfeed">
         {#if playerStatFeed[0]}
-            <img src={eventIcon(playerStatFeed[0].event_name)} alt="Statfeed icon 1">
+            <img src={eventIcon(playerStatFeed[0].type)} alt="Statfeed icon 1">
         {/if}
         {#if playerStatFeed[1]}
-            <img src={eventIcon(playerStatFeed[1].event_name)} alt="Statfeed icon 2">
+            <img src={eventIcon(playerStatFeed[1].type)} alt="Statfeed icon 2">
         {/if}
     </div>
 </div>
