@@ -11,11 +11,13 @@ export class PreCountdownBeginPacket extends Packet<boolean> {
             core.game.teams.length = 0;
             core.game.players.length = 0;
 
-            if (config.enableOBSTransitions) {
+            if (config.enableOBSTransitions || config.forcedTransitions) {
                 try {
-                    setTimeout(() => {
-                        animateTopBar(750);
-                    }, 750);
+                    if (config.displayAnimations) {
+                        setTimeout(() => {
+                            animateTopBar(750);
+                        }, 750);
+                    }
                     window.obsstudio.setCurrentScene?.(`RL (Game)`);
                 } catch (err) {
                     console.warn(err);

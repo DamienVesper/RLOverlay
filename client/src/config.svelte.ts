@@ -4,7 +4,11 @@ export const config = $state({
     titleText: ``,
     seriesText: ``,
     seriesLimit: 0,
+
+    chroma: urlParams.get(`chroma`) === `true`,
     enableOBSTransitions: true,
+    forcedTransitions: urlParams.get(`forcedTransitions`) === `true`,
+    displayAnimations: urlParams.get(`displayAnimations`) === `true`,
 
     customTeamNames: [``, ``],
 
@@ -18,7 +22,11 @@ export interface Config {
     titleText: string
     seriesText: string
     seriesLimit: number
+
+    chroma: boolean
     enableOBSTransitions: boolean
+    forcedTransitions: boolean
+    displayAnimations: boolean
 
     customTeamNames: string[]
 

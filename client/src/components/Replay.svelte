@@ -3,12 +3,13 @@
     import shotIcon from "../img/icons/shot.svg?dataurl";
     import assistIcon from "../img/icons/assist.svg?dataurl";
 
+    import { config } from "../config.svelte";
     import { core } from "../core.svelte";
 
     const goalData = $derived(core.game.goalData);
 </script>
 
-<div class={`replay-wrapper team-${core.game.goalData.scorer.teamnum}`} style={`opacity: ${core.game.watchingReplay ? 1 : 0}`}>
+<div class={`replay-wrapper team-${core.game.goalData.scorer.teamnum} chroma-${config.chroma ? `enabled` : `disabled`}`} style={`opacity: ${core.game.watchingReplay ? 1 : 0}`}>
     <div class="score-card">
         <span>
             <!-- <FontAwesomeIcon icon={faStopwatch} /> -->
@@ -77,13 +78,21 @@
         }
     }
 
-
-    .team-0 {
+    .team-0.chroma-disabled {
         background: linear-gradient(to right, #de1616aa -10%, #027dd1aa 25%, #1e90ffaa 50%, #027dd1aa 75%, #de1616aa 115%);
     }
 
-    .team-1 {
+    .team-0.chroma-enabled {
+        background: linear-gradient(to right, #de1616 -10%, #027dd1 25%, #1e90ff 50%, #027dd1 75%, #de1616 115%);
+
+    }
+
+    .team-1.chroma-disabled {
         background: linear-gradient(to right, #de1616aa -10%, #fc6b21aa 25%, #ffa321aa 50%, #fc6b21aa 75%, #de1616aa 115%);
+    }
+
+    .team-1-chroma-enabled {
+        background: linear-gradient(to right, #de1616 -10%, #fc6b21 25%, #ffa321 50%, #fc6b21 75%, #de1616 115%);
     }
 
     img {

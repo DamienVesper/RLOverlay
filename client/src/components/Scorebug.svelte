@@ -11,7 +11,7 @@
     $effect(() => {
         if (!initialized && core.game.initialized) {
             initialized = true;
-            animateTopBar(0);
+            if (config.displayAnimations) animateTopBar(0);
         }
     });
 </script>

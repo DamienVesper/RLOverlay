@@ -9,6 +9,7 @@ export class InitPacket extends Packet<Omit<Config, `wsServer`> & { msg: GameMsg
         config.titleText = raw.titleText;
         config.seriesText = raw.seriesText;
         config.seriesLimit = raw.seriesLimit;
+
         config.enableOBSTransitions = raw.enableOBSTransitions;
 
         config.customTeamNames[0] = raw.customTeamNames[0];

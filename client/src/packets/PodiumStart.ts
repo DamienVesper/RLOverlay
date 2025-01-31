@@ -9,7 +9,7 @@ export class PodiumStartPacket extends Packet<GameState> {
     deserialize = (raw: GameState) => {
         core.game.state = raw;
 
-        if (config.enableOBSTransitions) {
+        if (config.enableOBSTransitions || config.forcedTransitions) {
             try {
                 window.obsstudio.setCurrentScene?.(`RL (Stats)`);
             } catch (err) {
