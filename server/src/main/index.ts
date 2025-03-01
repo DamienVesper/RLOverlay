@@ -113,6 +113,10 @@ void app.whenReady().then(() => {
         win.webContents.send(`sendTeamData`, [...core.game.teams.values()]);
     });
 
+    ipcMain.on(`flushPlayerData`, () => {
+        core.game.players.clear();
+    });
+
     // Create the window.
     createWindow();
 

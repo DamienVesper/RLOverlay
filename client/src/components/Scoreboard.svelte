@@ -123,7 +123,7 @@
                     <div>{player.stats.assists}</div>
                     <div>{player.stats.shots}</div>
                     <div>{player.stats.saves}</div>
-                    <div>{player.stats.demos}</div>
+                    <div>{player.stats.demos >= 7 ? Math.floor(player.stats.demos / 7) : player.stats.demos}</div>
                     <div>{player.stats.touches}</div>
                 </div>
             {/each}
@@ -154,7 +154,7 @@
                     <div>{player.stats.assists}</div>
                     <div>{player.stats.shots}</div>
                     <div>{player.stats.saves}</div>
-                    <div>{player.stats.demos}</div>
+                    <div>{player.stats.demos >= 7 ? Math.floor(player.stats.demos / 7) : player.stats.demos}</div>
                     <div>{player.stats.touches}</div>
                 </div>
             {/each}

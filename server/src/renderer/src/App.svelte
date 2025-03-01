@@ -1,6 +1,6 @@
 <script lang="ts">
     import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
-    import { faArrowRightArrowLeft, faRankingStar, faTrash } from "@fortawesome/free-solid-svg-icons";
+    import { faArrowRightArrowLeft, faRankingStar, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 
     import { onMount } from "svelte";
     import "bootstrap";
@@ -69,6 +69,10 @@
         teams[0].name = ``;
         teams[1].name = ``;
         window.electron.ipcRenderer.send(`resetTeamData`);
+    };
+
+    const flushPlayerData = (_e: unknown) => {
+        window.electron.ipcRenderer.send(`flushPlayerData`);
     };
 
     const updateSeriesScore = (_e: unknown) => {
@@ -144,6 +148,12 @@
                             Reset Team Data
                         </button>
                     </div>
+                </div>
+                <div class="row g-2">
+                    <button class="btn btn-secondary w-100" onclick={flushPlayerData}>
+                        <FontAwesomeIcon icon={faXmark} />
+                        Flush Player Data
+                    </button>
                 </div>
                 <hr>
             </div>
